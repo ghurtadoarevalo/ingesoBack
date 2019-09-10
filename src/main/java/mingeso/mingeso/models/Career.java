@@ -1,4 +1,4 @@
-package mingeso.models;
+package mingeso.mingeso.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -1,14 +1,12 @@
-package mingeso.services;
+package mingeso.mingeso.services;
 
-import mingeso.models.Student;
-import mingeso.repositories.CareerRepository;
-import mingeso.repositories.StudentRepository;
+import mingeso.mingeso.models.Student;
+import mingeso.mingeso.repositories.CareerRepository;
+import mingeso.mingeso.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/student")

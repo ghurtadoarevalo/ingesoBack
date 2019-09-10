@@ -1,6 +1,4 @@
-package mingeso.models;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package mingeso.mingeso.models;
 
 import javax.persistence.*;
 

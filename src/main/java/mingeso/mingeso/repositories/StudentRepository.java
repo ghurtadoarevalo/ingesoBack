@@ -1,6 +1,6 @@
-package mingeso.repositories;
+package mingeso.mingeso.repositories;
 
-import mingeso.models.Student;
+import mingeso.mingeso.models.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

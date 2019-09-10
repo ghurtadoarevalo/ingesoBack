@@ -1,6 +1,6 @@
-package mingeso.services;
-import mingeso.models.Career;
-import mingeso.repositories.CareerRepository;
+package mingeso.mingeso.services;
+import mingeso.mingeso.models.Career;
+import mingeso.mingeso.repositories.CareerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -46,12 +46,4 @@ public class StudentTest {
     public void studentGetRutTest() {
         Assertions.assertEquals("19876459-1", exampleStudent.getRut());
     }
-
-    @Test
-    @DisplayName("Test for get all student")
-    public void findAllStudentsTest() {
-        List<Student> allStudents;
-        allStudents = studentRepository.findAll();
-        Assertions.assertEquals(2, allStudents.size());
-    }
 }

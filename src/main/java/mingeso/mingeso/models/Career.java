@@ -11,7 +11,7 @@ import java.util.Set;
 public class Career {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "career_id", unique = true, nullable = false)
     private Long careerId;
 

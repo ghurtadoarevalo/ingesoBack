@@ -25,14 +25,10 @@ public class StudentService {
     }
 
     @PostMapping
+    @ResponseBody
     public void createStudent(@RequestBody Student student_in) {
-        Student student = new Student();
-        student.setBirthDate(student_in.getBirthDate());
-        student.setCareer(careerRepository.findCareerByCareerId(student_in.getCareer().getCareerId()));
-        student.setName(student_in.getName());
-        student.setRut(student_in.getRut());
-        studentRepository.save(student);
+        //student_in.setCareer(careerRepository.findCareerByCareerId(student_in.getCareer().getCareerId()));
+        student_in.setCareer(careerRepository.findCareerByName(student_in.getCareer().getName()));
+        studentRepository.save(student_in);
     }
-
-
 }

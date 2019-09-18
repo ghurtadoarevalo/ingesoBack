@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "student_id", unique = true, nullable = false)
     private Long studentId;
 
@@ -20,7 +20,7 @@ public class Student {
     @Column(name = "birth_date", nullable = false, length = 20)
     private String birthDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "career_id", referencedColumnName = "career_id")
     private Career career;
 

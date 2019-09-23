@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 
 public class Career {
-
+    //holi
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "career_id", unique = true, nullable = false)

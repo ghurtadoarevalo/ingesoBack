@@ -18,7 +18,7 @@ public class RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
-    @GetMapping(value = "rooms")
+    @GetMapping(value = "/rooms")
     @ResponseBody
     public ResponseEntity getAll() {
         List<Room> rooms = roomRepository.findAll();

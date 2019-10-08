@@ -1,4 +1,7 @@
 package mingeso.mingeso.repositories;
 
-public interface ServiceRepository {
+import mingeso.mingeso.models.Service;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ServiceRepository extends JpaRepository<Service, Long> {
 }

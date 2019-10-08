@@ -1,4 +1,7 @@
 package mingeso.mingeso.repositories;
 
-public interface HotelRepository {
+import mingeso.mingeso.models.Hotel;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface HotelRepository extends JpaRepository<Hotel, Long> {
 }

@@ -1,4 +1,7 @@
 package mingeso.mingeso.repositories;
 
-public interface HistoryRepository {
+import mingeso.mingeso.models.History;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface HistoryRepository extends JpaRepository<History, Long> {
 }

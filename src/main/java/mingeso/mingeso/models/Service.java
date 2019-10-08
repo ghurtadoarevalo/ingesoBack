@@ -1,8 +1,12 @@
 package mingeso.mingeso.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
+@Entity
 @Table(name = "service",schema = "usach")
 public class Service {
     @Id
@@ -19,8 +23,11 @@ public class Service {
     @Column(name = "price", nullable = false, length = 10)
     private int price;
 
-    @Column(name = "date", nullable = false, length = 50)
-    private Date date;
+    @JsonIgnore
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+    private List<ServiceRoom> serviceRooms;
+
+
 
     public Long getServiceId() {
         return serviceId;
@@ -46,11 +53,4 @@ public class Service {
         this.price = price;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 }

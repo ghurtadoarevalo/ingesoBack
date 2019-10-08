@@ -1,8 +1,7 @@
 package mingeso.mingeso.models;
-
-
 import javax.persistence.*;
 
+@Entity
 @Table(name = "history",schema = "usach")
 public class History {
     @Id
@@ -12,6 +11,10 @@ public class History {
 
     @Column(name = "aditionalInfo", nullable = false, length = 400)
     private String aditionalInfo;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User user;
 
     public Long getHistoryId() {
         return historyId;
@@ -27,5 +30,13 @@ public class History {
 
     public void setAditionalInfo(String aditionalInfo) {
         this.aditionalInfo = aditionalInfo;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

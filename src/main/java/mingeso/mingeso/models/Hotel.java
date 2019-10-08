@@ -1,6 +1,8 @@
 package mingeso.mingeso.models;
 import javax.persistence.*;
+import java.util.List;
 
+@Entity
 @Table(name = "hotel",schema = "usach")
 public class Hotel {
     @Id
@@ -22,6 +24,10 @@ public class Hotel {
 
     @Column(name = "image_link", nullable = false, length = 50)
     private String imageLink;
+
+    @OneToMany(mappedBy="hotel")
+    private List<Room> roomList;
+
 
     public Long getHotelId() {
         return hotelId;

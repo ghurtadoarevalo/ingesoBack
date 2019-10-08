@@ -1,7 +1,9 @@
 package mingeso.mingeso.models;
 
 import javax.persistence.*;
+import java.util.List;
 
+@Entity
 @Table(name = "user",schema = "usach")
 public class User {
     @Id
@@ -26,6 +28,18 @@ public class User {
 
     @Column(name = "passport", nullable = false, length = 50)
     private String passport;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "history_id", referencedColumnName = "history_id")
+    private History history;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+    private Role role;
+
+    @OneToMany(mappedBy="user")
+    private List<Reservation> reservationList;
+
 
     public Long getUserId() {
         return userId;
@@ -81,5 +95,29 @@ public class User {
 
     public void setPassport(String passport) {
         this.passport = passport;
+    }
+
+    public History getHistory() {
+        return history;
+    }
+
+    public void setHistory(History history) {
+        this.history = history;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public List<Reservation> getReservationList() {
+        return reservationList;
+    }
+
+    public void setReservationList(List<Reservation> reservationList) {
+        this.reservationList = reservationList;
     }
 }

@@ -2,13 +2,17 @@ package mingeso.mingeso.models;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
+@Entity
 @Table(name = "reservation",schema = "usach")
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "reservation_id", unique = true, nullable = false)
     private Long reservationId;
+
+    //@Temporal(TemporalType.TIMESTAMP)
 
     @Column(name = "initial_date", nullable = false, length = 50)
     private Date initialDate;
@@ -18,6 +22,14 @@ public class Reservation {
 
     @Column(name = "estate", nullable = false, length = 50)
     private String estate;
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
+
+    @OneToMany(mappedBy="reservation")
+    private List<Room> roomList;
+
 
     public Long getReservationId() {
         return reservationId;
@@ -49,5 +61,21 @@ public class Reservation {
 
     public void setEstate(String estate) {
         this.estate = estate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Room> getRoomList() {
+        return roomList;
+    }
+
+    public void setRoomList(List<Room> roomList) {
+        this.roomList = roomList;
     }
 }

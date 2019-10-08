@@ -1,7 +1,11 @@
 package mingeso.mingeso.models;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
 @Table(name = "room",schema = "usach")
 public class Room {
     @Id
@@ -30,6 +34,20 @@ public class Room {
 
     @Column(name = "image_link", nullable = false, length = 50)
     private String imageLink;
+
+
+    @ManyToOne
+    @JoinColumn(name="reservation_id", nullable=false)
+    private Reservation reservation;
+
+    @ManyToOne
+    @JoinColumn(name="hotel_id", nullable=false)
+    private Hotel hotel;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    private List<ServiceRoom> serviceRooms;
+
 
     public Long getRoomId() {
         return roomId;

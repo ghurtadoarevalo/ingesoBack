@@ -3,6 +3,7 @@ package mingeso.mingeso.models;
 import javax.persistence.*;
 import java.sql.Date;
 
+@Entity
 @Table(name = "role",schema = "usach")
 public class Role {
     @Id
@@ -15,6 +16,11 @@ public class Role {
     //2: Administrador (dueño)
     @Column(name = "type", nullable = false, length = 5)
     private int type;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User user;
+
 
     public Long getRoleId() {
         return roleId;

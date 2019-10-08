@@ -21,7 +21,7 @@ public class User {
     private String rut;
 
     @Column(name = "contact", nullable = false, length = 50)
-    private int contact;
+    private String contact;
 
     @Column(name = "mail", nullable = false, length = 50)
     private String mail;
@@ -73,11 +73,11 @@ public class User {
         this.rut = rut;
     }
 
-    public int getContact() {
+    public String getContact() {
         return contact;
     }
 
-    public void setContact(int contact) {
+    public void setContact(String contact) {
         this.contact = contact;
     }
 

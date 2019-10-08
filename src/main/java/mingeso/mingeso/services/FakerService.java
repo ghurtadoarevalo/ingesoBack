@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.regex.Pattern;
 
+import static java.lang.Integer.parseInt;
+
+
 @Controller
 @RequestMapping(value = "/faker")
 @CrossOrigin(origins = "*")
@@ -40,26 +43,31 @@ public class FakerService {
         {
             User newUser = new User();
             newUser.setName(faker.name().fullName());
-            newUser.setPassword(faker.name().username());
-            newUser.setRut("a");
+            newUser.setPassword(faker.internet().password());
+            newUser.setRut(createRut());
+            newUser.setContact(faker.phoneNumber().phoneNumber());
+            newUser.setMail(faker.internet().safeEmailAddress());
+
 
         }
     }
 
-    @GetMapping(value = "/users")
+    @GetMapping(value = "/test")
     @ResponseBody
-    public void crearRut(){
+    public String createRut(){
         String rut = "";
         for(int i = 0; i<7;i++) {
-            Double digito = Math.random()*9;
-            rut.concat(digito.toString());
+            int digito = (int)Math.round(Math.random()*9);
+            rut = rut + digito;
         }
-        Double verificador = Math.random()*9;
-        rut.concat("-");
-        rut.concat(verificador.toString());
-        System.out.println(rut);
+        int verificador = (int)Math.round(Math.random()*9);
+        return rut + "-" + verificador;
+    }
 
+    public String createPassport(){
+        String passport = "";
 
+        return passport;
     }
 
 }

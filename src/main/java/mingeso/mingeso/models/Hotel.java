@@ -14,7 +14,7 @@ public class Hotel {
     private String name;
 
     @Column(name = "contact", nullable = false, length = 50)
-    private int contact;
+    private String contact;
 
     @Column(name = "location", nullable = false, length = 100)
     private String location;
@@ -45,13 +45,14 @@ public class Hotel {
         this.name = name;
     }
 
-    public int getContact() {
+    public String getContact() {
         return contact;
     }
 
-    public void setContact(int contact) {
+    public void setContact(String contact) {
         this.contact = contact;
     }
+
 
     public String getLocation() {
         return location;
@@ -75,5 +76,13 @@ public class Hotel {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    public List<Room> getRoomList() {
+        return roomList;
+    }
+
+    public void setRoomList(List<Room> roomList) {
+        this.roomList = roomList;
     }
 }

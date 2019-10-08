@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -23,6 +24,20 @@ public class UserService {
     public ResponseEntity getAll() {
         List<User> users = userRepository.findAll();
         return new ResponseEntity(users, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    @ResponseBody
+    public ResponseEntity getById(@PathVariable ("id") Long id) {
+        User userValue;
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()) {
+            userValue = user.get();
+            return new ResponseEntity(userValue, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @PostMapping

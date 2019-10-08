@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/room")
@@ -23,6 +24,19 @@ public class RoomService {
     public ResponseEntity getAll() {
         List<Room> rooms = roomRepository.findAll();
         return new ResponseEntity(rooms, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    @ResponseBody
+    public ResponseEntity getById(@PathVariable("id") Long id) {
+        Room roomValue;
+        Optional<Room> room = roomRepository.findById(id);
+        if(room.isPresent()) {
+            roomValue = room.get();
+            return new ResponseEntity(roomValue, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = "/create")

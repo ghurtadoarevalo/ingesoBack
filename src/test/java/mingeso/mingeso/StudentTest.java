@@ -1,9 +1,5 @@
 package mingeso.mingeso;
 
-import mingeso.mingeso.models.Career;
-import mingeso.mingeso.models.Student;
-import mingeso.mingeso.repositories.CareerRepository;
-import mingeso.mingeso.repositories.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.junit.jupiter.api.Assertions;
-
-import javax.validation.constraints.Null;
-import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

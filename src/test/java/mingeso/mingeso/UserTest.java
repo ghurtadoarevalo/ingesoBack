@@ -52,4 +52,16 @@ public class UserTest {
     public void getUserMailTest() {
         Assertions.assertEquals("Matias@matias.cl", user.getMail());
     }
+
+    @Test
+    @DisplayName("Test for get user rut")
+    public void getUserRutTest() {
+        Assertions.assertEquals("1235678-2", user.getRut());
+    }
+
+    @Test
+    @DisplayName("Test for get user password")
+    public void getUserPassword() {
+        Assertions.assertEquals("ricolino", user.getPassword());
+    }
 }

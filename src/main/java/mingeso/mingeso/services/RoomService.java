@@ -60,19 +60,19 @@ public class RoomService {
         Boolean verificator = true;
 
         if(room.getHotel() != null) {
-            if(null == hotelRepository.findById(room.getHotel().getHotelId())){
+            if(!hotelRepository.findById(room.getHotel().getHotelId()).isPresent()){
                 verificator = false;
             }
         }else{verificator = false;}
 
         if(room.getReservation() != null) {
-            if(null == reservationRepository.findById(room.getReservation().getReservationId())){
+            if(!reservationRepository.findById(room.getReservation().getReservationId()).isPresent()){
                 verificator = false;
             }
         }else{verificator = false;}
 
         if(room.getReservation() != null) {
-            if(null == reservationRepository.findById(room.getReservation().getReservationId())){
+            if(!reservationRepository.findById(room.getReservation().getReservationId()).isPresent()){
                 verificator = false;
             }
         }else{verificator = false;}
@@ -81,11 +81,11 @@ public class RoomService {
         if(null != serviceRoomList){
             for(int i = 0 ; i < serviceRoomList.size();i++){
                 ServiceRoom serviceRoom = serviceRoomList.get(i);
-                if(null == roomRepository.findById(serviceRoom.getRoom().getRoomId())){
+                if(!roomRepository.findById(serviceRoom.getRoom().getRoomId()).isPresent()){
                     verificator = false;
                     break;
                 }
-                if(null == serviceRepository.findById(serviceRoom.getService().getServiceId())){
+                if(!serviceRepository.findById(serviceRoom.getService().getServiceId()).isPresent()){
                     verificator = false;
                     break;
                 }

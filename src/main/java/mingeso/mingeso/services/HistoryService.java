@@ -33,13 +33,13 @@ public class HistoryService {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public ResponseEntity create(@RequestBody History history) {
-        if(null == userRepository.findById(history.getUser().getUserId())){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);}
-        else{
-            History newHistory = new History();
-            newHistory.setAditionalInfo(history.getAditionalInfo());
-            newHistory.setUser(history.getUser());
-            return new ResponseEntity(historyRepository.save(newHistory), HttpStatus.CREATED);
+        if (userRepository.findById(history.getUser().getUserId()).isPresent()) {
+            History persistenHistory = new History();
+            persistenHistory.setAditionalInfo(history.getAditionalInfo());
+            persistenHistory.setUser(history.getUser());
+            return new ResponseEntity(historyRepository.save(persistenHistory), HttpStatus.CREATED);
         }
+
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 }

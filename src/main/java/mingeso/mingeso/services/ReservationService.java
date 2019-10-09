@@ -19,8 +19,6 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class ReservationService {
 
-
-
     @Autowired
     ReservationRepository reservationRepository;
 
@@ -42,7 +40,6 @@ public class ReservationService {
     public ResponseEntity create(@RequestBody Reservation reservation) {
 
         List<Room> inputRoomList = reservation.getRoomList();
-        Client inputClient = reservation.getClient();
         Boolean verification = true;
 
         for(int i = 0; i < inputRoomList.size();i++) {
@@ -55,7 +52,7 @@ public class ReservationService {
             verification = false;
         }
 
-        if(verification == false) {
+        if(!verification) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }else{
             Reservation newReservation = new Reservation();

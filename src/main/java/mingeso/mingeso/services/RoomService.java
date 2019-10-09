@@ -92,7 +92,7 @@ public class RoomService {
             }
         }else{verificator = false;}
 
-        if(verificator == false){
+        if(!verificator){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         else {

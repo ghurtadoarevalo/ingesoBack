@@ -38,7 +38,6 @@ public class HistoryService {
             persistenHistory.setClient(history.getClient());
             return new ResponseEntity(historyRepository.save(persistenHistory), HttpStatus.CREATED);
         }
-
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 }

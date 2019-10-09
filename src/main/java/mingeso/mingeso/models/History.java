@@ -9,7 +9,7 @@ public class History {
     @Column(name = "history_id", unique = true, nullable = false)
     private Long historyId;
 
-    @Column(name = "aditionalInfo", nullable = false, length = 400)
+    @Column(name = "aditionalInfo", nullable = true, length = 400)
     private String aditionalInfo;
 
     @OneToOne(cascade = CascadeType.ALL)

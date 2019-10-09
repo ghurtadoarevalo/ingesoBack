@@ -46,7 +46,7 @@ public class FakerService {
     }
 
     public void createRoles(){
-        for(int i = 0 ; i < 2;i++) {
+        for(int i = 0 ; i < 3;i++) {
             Role newRole = new Role();
             newRole.setType(i);
             roleRepository.save(newRole);
@@ -111,12 +111,14 @@ public class FakerService {
     public void createUsers(){
         for (int i = 0 ; i < 50; i++) {
             User newUser = new User();
+            History newHistory = new History();
             newUser.setName(faker.name().fullName());
             newUser.setPassword(faker.internet().password());
             newUser.setRut(createRut());
             newUser.setContact(faker.phoneNumber().phoneNumber());
             newUser.setMail(faker.internet().safeEmailAddress());
             newUser.setPassport(createPassport());
+            newUser.setHistory(newHistory);
             userRepository.save(newUser);
         }
     }

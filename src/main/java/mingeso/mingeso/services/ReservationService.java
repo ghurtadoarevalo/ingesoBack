@@ -2,10 +2,10 @@ package mingeso.mingeso.services;
 
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Room;
-import mingeso.mingeso.models.User;
+import mingeso.mingeso.models.Client;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.RoomRepository;
-import mingeso.mingeso.repositories.UserRepository;
+import mingeso.mingeso.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class ReservationService {
     RoomRepository roomRepository;
 
     @Autowired
-    UserRepository userRepository;
+    ClientRepository clientRepository;
 
     @GetMapping(value = "/reservations")
     @ResponseBody
@@ -42,7 +42,7 @@ public class ReservationService {
     public ResponseEntity create(@RequestBody Reservation reservation) {
 
         List<Room> inputRoomList = reservation.getRoomList();
-        User inputUser = reservation.getUser();
+        Client inputClient = reservation.getClient();
         Boolean verification = true;
 
         for(int i = 0; i < inputRoomList.size();i++) {
@@ -51,7 +51,7 @@ public class ReservationService {
                 break;
             }
         }
-        if(null == userRepository.findById(reservation.getUser().getUserId())){
+        if(null == clientRepository.findById(reservation.getClient().getClientId())){
             verification = false;
         }
 
@@ -63,7 +63,7 @@ public class ReservationService {
             newReservation.setFinalDate(reservation.getFinalDate());
             newReservation.setInitialDate(reservation.getInitialDate());
             newReservation.setRoomList(reservation.getRoomList());
-            newReservation.setUser(reservation.getUser());
+            newReservation.setClient(reservation.getClient());
             return new ResponseEntity(reservationRepository.save(newReservation), HttpStatus.CREATED);
         }
     }

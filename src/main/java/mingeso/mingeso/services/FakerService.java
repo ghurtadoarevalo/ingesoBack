@@ -26,7 +26,7 @@ public class FakerService {
     @Autowired
     ServiceRepository serviceRepository;
     @Autowired
-    UserRepository userRepository;
+    ClientRepository clientRepository;
     @Autowired
     HotelRepository hotelRepository;
     @Autowired
@@ -40,8 +40,7 @@ public class FakerService {
         createRoles();
         createServices();
         createRooms();
-        createUsers();
-        addUserRole();
+        createClients();
     }
 
     public void createRoles(){
@@ -107,38 +106,17 @@ public class FakerService {
         }
     }
 
-    public void createUsers(){
+    public void createClients(){
         for (int i = 0 ; i < 50; i++) {
-            User newUser = new User();
+            Client newClient = new Client();
             History newHistory = new History();
-            newUser.setName(faker.name().fullName());
-            newUser.setPassword(faker.internet().password());
-            newUser.setRut(createRut());
-            newUser.setContact(faker.phoneNumber().phoneNumber());
-            newUser.setMail(faker.internet().safeEmailAddress());
-            newUser.setPassport(createPassport());
-            newUser.setHistory(newHistory);
-            userRepository.save(newUser);
-        }
-    }
-
-    public void addUserRole(){
-        List<User> userList = userRepository.findAll();
-
-        Role generalUser = roleRepository.findRoleByType(0);
-        Role receptionist = roleRepository.findRoleByType(1);
-        Role admin = roleRepository.findRoleByType(2);
-
-        userList.get(0).setRole(admin);
-        userList.get(1).setRole(receptionist);
-        userList.get(2).setRole(receptionist);
-        userList.get(3).setRole(receptionist);
-
-        for(int i = 4 ; i < userList.size();i++) {
-            userList.get(i).setRole(generalUser);
-        }
-        for(int i = 0 ; i < userList.size();i++){
-            userRepository.save(userList.get(i));
+            newClient.setName(faker.name().fullName());
+            newClient.setRut(createRut());
+            newClient.setContact(faker.phoneNumber().phoneNumber());
+            newClient.setMail(faker.internet().safeEmailAddress());
+            newClient.setPassport(createPassport());
+            newClient.setHistory(newHistory);
+            clientRepository.save(newClient);
         }
     }
 

@@ -13,9 +13,6 @@ public class Room {
     @Column(name = "room_id", unique = true, nullable = false)
     private Long roomId;
 
-    //0: Tipo 0
-    //1: Tipo 1
-    //2: Tipo 2 ...
     @Column(name = "type", nullable = false, length = 3)
     private int type;
 

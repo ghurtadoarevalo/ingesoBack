@@ -13,9 +13,8 @@ public class History {
     private String aditionalInfo;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-
-    private User user;
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
+    private Client client;
 
     public Long getHistoryId() {
         return historyId;
@@ -33,20 +32,20 @@ public class History {
         this.aditionalInfo = aditionalInfo;
     }
 
-    public User getUser() {
-        return user;
+    public Client getClient() {
+        return client;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public History () {
 
     }
 
-    public History(String aditionalInfo, User user) {
+    public History(String aditionalInfo, Client user) {
         this.aditionalInfo = aditionalInfo;
-        this.user = user;
+        this.client = user;
     }
 }

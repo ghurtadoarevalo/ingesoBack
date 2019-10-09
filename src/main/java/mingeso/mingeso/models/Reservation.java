@@ -22,8 +22,8 @@ public class Reservation {
     private int estate;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
-    private User user;
+    @JoinColumn(name="client_id", nullable=false)
+    private Client client;
 
     @OneToMany(mappedBy="reservation")
     private List<Room> roomList;
@@ -61,12 +61,12 @@ public class Reservation {
         this.estate = estate;
     }
 
-    public User getUser() {
-        return user;
+    public Client getClient() {
+        return client;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public List<Room> getRoomList() {
@@ -81,11 +81,11 @@ public class Reservation {
 
     }
 
-    public Reservation(Date initialDate, Date finalDate, int estate, User user, List<Room> roomList) {
+    public Reservation(Date initialDate, Date finalDate, int estate, Client client, List<Room> roomList) {
         this.initialDate = initialDate;
         this.finalDate = finalDate;
         this.estate = estate;
-        this.user = user;
+        this.client = client;
         this.roomList = roomList;
     }
 }

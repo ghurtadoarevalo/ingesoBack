@@ -1,9 +1,8 @@
 package mingeso.mingeso.services;
 
 import mingeso.mingeso.models.History;
-import mingeso.mingeso.models.User;
 import mingeso.mingeso.repositories.HistoryRepository;
-import mingeso.mingeso.repositories.UserRepository;
+import mingeso.mingeso.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ public class HistoryService {
     @Autowired
     private HistoryRepository historyRepository;
     @Autowired
-    private UserRepository userRepository;
+    private ClientRepository userRepository;
 
     @GetMapping(value = "/histories")
     @ResponseBody

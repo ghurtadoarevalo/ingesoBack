@@ -11,13 +11,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class UserTest {
 
-    private User user;
+    private Client user;
 
     private History history;
 
@@ -27,7 +26,7 @@ public class UserTest {
 
     @BeforeEach
     public void initializeUser() {
-        user = new User();
+        user = new Client();
         long userId = 7;
         user.setName("Matias");
         user.setContact("60593895");

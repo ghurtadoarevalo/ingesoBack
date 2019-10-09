@@ -1,7 +1,9 @@
 package mingeso.mingeso.services;
 
+import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Role;
 import mingeso.mingeso.models.User;
+import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.RoleRepository;
 import mingeso.mingeso.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,10 @@ public class UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
+
 
     @GetMapping(value = "/users")
     @ResponseBody
@@ -50,7 +56,36 @@ public class UserService {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public ResponseEntity create(@RequestBody User user) {
-        return new ResponseEntity(userRepository.save(user), HttpStatus.CREATED);
+
+        Boolean verificator = true;
+        List<Reservation> reservationList = user.getReservationList();
+        for(int i = 0 ; i < reservationList.size();i++) {
+            if(null == reservationRepository.findById(reservationList.get(i).getReservationId())){
+                verificator = false;
+            }
+        }
+        if(user.getRole() != null){
+            if(null == roleRepository.findById(user.getRole().getRoleId())){
+                verificator = false;
+            }
+        }else{verificator = false;}
+
+        if(verificator == false){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else {
+            User newUser = new User();
+            newUser.setName(user.getName());
+            newUser.setContact(user.getContact());
+            newUser.setMail(user.getMail());
+            newUser.setHistory(user.getHistory());
+            newUser.setPassport(user.getPassport());
+            newUser.setPassword(user.getPassword());
+            newUser.setReservationList(user.getReservationList());
+            newUser.setRole(user.getRole());
+            newUser.setRut(user.getRut());
+            return new ResponseEntity(userRepository.save(newUser), HttpStatus.CREATED);
+        }
     }
 
     @GetMapping(value = "/users/{role_id}")

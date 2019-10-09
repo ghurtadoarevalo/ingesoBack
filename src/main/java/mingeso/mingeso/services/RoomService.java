@@ -1,7 +1,11 @@
 package mingeso.mingeso.services;
 
 import mingeso.mingeso.models.Room;
+import mingeso.mingeso.models.ServiceRoom;
+import mingeso.mingeso.repositories.HotelRepository;
+import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.RoomRepository;
+import mingeso.mingeso.repositories.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +22,15 @@ public class RoomService {
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private HotelRepository hotelRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
+
+    @Autowired
+    private ServiceRepository serviceRepository;
 
     @GetMapping(value = "/rooms")
     @ResponseBody
@@ -43,6 +56,57 @@ public class RoomService {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public ResponseEntity create(@RequestBody Room room) {
-        return new ResponseEntity(roomRepository.save(room), HttpStatus.CREATED);
+
+        Boolean verificator = true;
+
+        if(room.getHotel() != null) {
+            if(null == hotelRepository.findById(room.getHotel().getHotelId())){
+                verificator = false;
+            }
+        }else{verificator = false;}
+
+        if(room.getReservation() != null) {
+            if(null == reservationRepository.findById(room.getReservation().getReservationId())){
+                verificator = false;
+            }
+        }else{verificator = false;}
+
+        if(room.getReservation() != null) {
+            if(null == reservationRepository.findById(room.getReservation().getReservationId())){
+                verificator = false;
+            }
+        }else{verificator = false;}
+
+        List<ServiceRoom> serviceRoomList = room.getServiceRooms();
+        if(null != serviceRoomList){
+            for(int i = 0 ; i < serviceRoomList.size();i++){
+                ServiceRoom serviceRoom = serviceRoomList.get(i);
+                if(null == roomRepository.findById(serviceRoom.getRoom().getRoomId())){
+                    verificator = false;
+                    break;
+                }
+                if(null == serviceRepository.findById(serviceRoom.getService().getServiceId())){
+                    verificator = false;
+                    break;
+                }
+            }
+        }else{verificator = false;}
+
+        if(verificator == false){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else {
+            Room newRoom = new Room();
+            newRoom.setImageLink(room.getImageLink());
+            newRoom.setType(room.getType());
+            newRoom.setRoomNumber(room.getRoomNumber());
+            newRoom.setPrice(room.getPrice());
+            newRoom.setChildCapacity(room.getChildCapacity());
+            newRoom.setAdultCapacity(room.getAdultCapacity());
+            newRoom.setHotel(room.getHotel());
+            newRoom.setReservation(room.getReservation());
+            newRoom.setServiceRooms(room.getServiceRooms());
+            return new ResponseEntity(roomRepository.save(newRoom), HttpStatus.CREATED);
+        }
     }
 }

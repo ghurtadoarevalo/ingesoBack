@@ -39,7 +39,7 @@ public class HistoryService {
             History newHistory = new History();
             newHistory.setAditionalInfo(history.getAditionalInfo());
             newHistory.setUser(history.getUser());
-            return new ResponseEntity(historyRepository.save(history), HttpStatus.CREATED);
+            return new ResponseEntity(historyRepository.save(newHistory), HttpStatus.CREATED);
         }
     }
 }

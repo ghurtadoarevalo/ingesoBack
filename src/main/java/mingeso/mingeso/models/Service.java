@@ -14,14 +14,17 @@ public class Service {
     @Column(name = "service_id", unique = true, nullable = false)
     private Long serviceId;
 
-    //0: Service 0
-    //1: Service 1
-    //2: Service 2
     @Column(name = "type", nullable = false, length = 3)
     private int type;
 
     @Column(name = "price", nullable = false, length = 10)
     private int price;
+
+    @Column(name = "service_name", nullable = false, length = 25)
+    private String serviceName;
+
+    @Column(name = "manager_name", nullable = false, length = 25)
+    private String managerName;
 
     @JsonIgnore
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
@@ -53,4 +56,27 @@ public class Service {
         this.price = price;
     }
 
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
+    }
+
+    public List<ServiceRoom> getServiceRooms() {
+        return serviceRooms;
+    }
+
+    public void setServiceRooms(List<ServiceRoom> serviceRooms) {
+        this.serviceRooms = serviceRooms;
+    }
 }

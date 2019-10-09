@@ -31,13 +31,12 @@ public class Room {
     @Column(name = "adult_capacity", nullable = false, length = 3)
     private int adultCapacity;
 
-
     @Column(name = "image_link", nullable = false, length = 50)
     private String imageLink;
 
 
     @ManyToOne
-    @JoinColumn(name="reservation_id", nullable=false)
+    @JoinColumn(name="reservation_id", nullable=true)
     private Reservation reservation;
 
     @ManyToOne
@@ -103,5 +102,29 @@ public class Room {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    public List<ServiceRoom> getServiceRooms() {
+        return serviceRooms;
+    }
+
+    public void setServiceRooms(List<ServiceRoom> serviceRooms) {
+        this.serviceRooms = serviceRooms;
     }
 }

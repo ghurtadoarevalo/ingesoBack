@@ -33,4 +33,13 @@ public class Role {
     public void setType(int type) {
         this.type = type;
     }
+
+    public Role() {
+
+    }
+
+    public Role(int type, User user) {
+        this.type = type;
+        this.user = user;
+    }
 }

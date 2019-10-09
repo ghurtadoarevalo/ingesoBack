@@ -76,4 +76,16 @@ public class Reservation {
     public void setRoomList(List<Room> roomList) {
         this.roomList = roomList;
     }
+
+    public Reservation() {
+
+    }
+
+    public Reservation(Date initialDate, Date finalDate, int estate, User user, List<Room> roomList) {
+        this.initialDate = initialDate;
+        this.finalDate = finalDate;
+        this.estate = estate;
+        this.user = user;
+        this.roomList = roomList;
+    }
 }

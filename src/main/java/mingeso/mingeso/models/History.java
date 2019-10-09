@@ -14,6 +14,7 @@ public class History {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+
     private User user;
 
     public Long getHistoryId() {
@@ -37,6 +38,15 @@ public class History {
     }
 
     public void setUser(User user) {
+        this.user = user;
+    }
+
+    public History () {
+
+    }
+
+    public History(String aditionalInfo, User user) {
+        this.aditionalInfo = aditionalInfo;
         this.user = user;
     }
 }

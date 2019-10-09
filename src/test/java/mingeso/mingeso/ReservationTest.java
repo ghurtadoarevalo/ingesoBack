@@ -21,7 +21,7 @@ import java.sql.Date;
     public void initializeReservation() {
         reservation = new Reservation();
         long reservationId = 5;
-        reservation.setEstate("Santiago");
+        reservation.setEstate(1);
         Date date = java.sql.Date.valueOf("2019-03-13");
         reservation.setFinalDate(date);
         reservation.setReservationId(reservationId);

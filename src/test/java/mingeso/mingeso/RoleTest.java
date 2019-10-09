@@ -27,7 +27,7 @@ public class RoleTest {
     @DisplayName("Test for get role Id")
     public void getRoleIdTest() {
         long roleId = 0;
-        long realRoleId = role.getRoleId()
+        long realRoleId = role.getRoleId();
         Assertions.assertEquals(0, realRoleId);
     }
 

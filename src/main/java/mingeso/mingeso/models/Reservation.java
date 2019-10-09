@@ -12,16 +12,14 @@ public class Reservation {
     @Column(name = "reservation_id", unique = true, nullable = false)
     private Long reservationId;
 
-    //@Temporal(TemporalType.TIMESTAMP)
-
     @Column(name = "initial_date", nullable = false, length = 50)
     private Date initialDate;
 
     @Column(name = "final_date", nullable = false, length = 50)
     private Date finalDate;
 
-    @Column(name = "estate", nullable = false, length = 50)
-    private String estate;
+    @Column(name = "estate", nullable = false, length = 2)
+    private int estate;
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
@@ -55,11 +53,11 @@ public class Reservation {
         this.finalDate = finalDate;
     }
 
-    public String getEstate() {
+    public int getEstate() {
         return estate;
     }
 
-    public void setEstate(String estate) {
+    public void setEstate(int estate) {
         this.estate = estate;
     }
 

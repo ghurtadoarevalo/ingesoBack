@@ -21,7 +21,6 @@ public class FakerService {
 
     @Autowired
     Faker faker;
-
     @Autowired
     RoomRepository roomRepository;
     @Autowired
@@ -95,7 +94,7 @@ public class FakerService {
             Room newRoom = new Room();
             newRoom.setAdultCapacity(faker.number().numberBetween(1,6));
             newRoom.setChildCapacity(faker.number().numberBetween(1,6));
-            newRoom.setType(faker.number().numberBetween(0,2));
+            newRoom.setType(faker.number().numberBetween(0,3));
             int price = 0;
             if(newRoom.getType()==0){price = 20000;}
             if(newRoom.getType()==1){price = 45000;}
@@ -145,30 +144,28 @@ public class FakerService {
 
 
     public String createRut(){
-        String rut = "";
+        StringBuilder rut = new StringBuilder();
         int inicio = faker.number().numberBetween(0,1);
-        if(inicio == 1){rut = rut+inicio;}
-
-        rut = rut + faker.number().numberBetween(1,9);
-
+        if(inicio == 1){rut.append(inicio);}
+        rut.append(faker.number().numberBetween(1,9));
         for(int i = 0; i<6;i++) {
             int digito = faker.number().numberBetween(0,9);
-            rut = rut + digito;
+            rut.append(digito);
         }
         int verificador = faker.number().numberBetween(0,11);
-        if(verificador == 10){rut = rut + "-k";}
-        else{rut = rut + "-" + verificador;}
-        return rut;
+        if(verificador == 10){rut.append("-K");}
+        else{rut.append("-" + verificador);}
+        return rut.toString();
     }
 
     public String createPassport(){
-        String passport = "";
-        passport = faker.name().fullName().substring(0,3).toUpperCase();
+        StringBuilder passport = new StringBuilder();
+        passport.append(faker.name().fullName().substring(0,3).toUpperCase());
         for(int i = 0 ; i < 6;i++) {
             int digito = faker.number().numberBetween(0,9);
-            passport = passport + digito;
+            passport.append(digito);
         }
-        return passport;
+        return passport.toString();
     }
 
 }

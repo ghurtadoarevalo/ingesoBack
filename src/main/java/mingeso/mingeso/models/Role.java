@@ -1,7 +1,6 @@
 package mingeso.mingeso.models;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 @Table(name = "role",schema = "usach")
@@ -11,9 +10,6 @@ public class Role {
     @Column(name = "role_id", unique = true, nullable = false)
     private Long roleId;
 
-    //0: Usuario natural;
-    //1: Recepcionista
-    //2: Administrador (dueño)
     @Column(name = "type", nullable = false, length = 5)
     private int type;
 

@@ -17,7 +17,7 @@ public class RoleTest {
 
     @BeforeEach
     public void initializeRole() {
-        Role role = new Role();
+        role = new Role();
         long roleId = 5;
         role.setRoleId(roleId);
         role.setType(0);
@@ -26,9 +26,9 @@ public class RoleTest {
     @Test
     @DisplayName("Test for get role Id")
     public void getRoleIdTest() {
-        long roleId = 0;
+        long roleId = 5;
         long realRoleId = role.getRoleId();
-        Assertions.assertEquals(0, realRoleId);
+        Assertions.assertEquals(roleId, realRoleId);
     }
 
     @Test

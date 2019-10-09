@@ -13,10 +13,8 @@ public class Role {
     @Column(name = "type", nullable = false, length = 5)
     private int type;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @OneToOne(mappedBy = "role")
     private User user;
-
 
     public Long getRoleId() {
         return roleId;

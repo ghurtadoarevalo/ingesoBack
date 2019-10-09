@@ -16,97 +16,80 @@ import java.util.ArrayList;
 @SpringBootTest
 public class UserTest {
 
-    private Client user;
+    private Client client;
 
     private History history;
-
-    private Role role;
 
     private Reservation reservation;
 
     @BeforeEach
     public void initializeUser() {
-        user = new Client();
+        client = new Client();
         long userId = 7;
-        user.setName("Matias");
-        user.setContact("60593895");
-        user.setMail("Matias@matias.cl");
-        user.setPassword("ricolino");
-        user.setRut("1235678-2");
-        user.setUserId(userId);
-        user.setPassport("029123");
+        client.setName("Matias");
+        client.setContact("60593895");
+        client.setMail("Matias@matias.cl");
+        client.setRut("1235678-2");
+        client.setClientId(userId);
+        client.setPassport("029123");
 
-        history = new History("Hola", user);
-        role = new Role(0, user);
+        history = new History("Hola", client);
         Date date = java.sql.Date.valueOf("2019-03-13");
         ArrayList<Room> rooms = new ArrayList<>();
         ArrayList<Reservation> reservations = new ArrayList<>();
-        reservation = new Reservation(date, date, 0, user, rooms);
+        reservation = new Reservation(date, date, 0, client, rooms);
         reservations.add(reservation);
-        user.setHistory(history);
-        user.setRole(role);
-        user.setReservationList(reservations);
+        client.setHistory(history);
+        client.setReservationList(reservations);
     }
 
     @Test
     @DisplayName("Test for get user id")
-    public void getUserIdTest() {
-        long userId = 7;
-        long realUserId = user.getUserId();
-        Assertions.assertEquals(userId, realUserId);
+    public void getClientIdTest() {
+        long clientId = 7;
+        long realClientId = client.getClientId();
+        Assertions.assertEquals(clientId, realClientId);
     }
 
     @Test
     @DisplayName("Test for get user name")
-    public void getUserNameTest() {
-        Assertions.assertEquals("Matias", user.getName());
+    public void getClientNameTest() {
+        Assertions.assertEquals("Matias", client.getName());
     }
 
     @Test
     @DisplayName("Test for get user contact")
-    public void getUserContactTest() {
-        Assertions.assertEquals("60593895", user.getContact());
+    public void getClientContactTest() {
+        Assertions.assertEquals("60593895", client.getContact());
     }
 
     @Test
     @DisplayName("Test for get user mail")
-    public void getUserMailTest() {
-        Assertions.assertEquals("Matias@matias.cl", user.getMail());
+    public void getClientMailTest() {
+        Assertions.assertEquals("Matias@matias.cl", client.getMail());
     }
 
     @Test
     @DisplayName("Test for get user rut")
-    public void getUserRutTest() {
-        Assertions.assertEquals("1235678-2", user.getRut());
-    }
-
-    @Test
-    @DisplayName("Test for get user password")
-    public void getUserPassword() {
-        Assertions.assertEquals("ricolino", user.getPassword());
+    public void getClientRutTest() {
+        Assertions.assertEquals("1235678-2", client.getRut());
     }
 
     @Test
     @DisplayName("Test for get passport")
-    public void getUserPassport() {
-        Assertions.assertEquals("029123", user.getPassport());
+    public void getClientPassport() {
+        Assertions.assertEquals("029123", client.getPassport());
     }
 
     @Test
     @DisplayName("Test for set and get history")
     public void setAndGetHistory() {
-        Assertions.assertEquals(history, user.getHistory());
-    }
-
-    @Test
-    @DisplayName("Test for get role")
-    public void getRoleTest() {
-        Assertions.assertEquals(role, user.getRole());
+        Assertions.assertEquals(history, client.getHistory());
     }
 
     @Test
     @DisplayName("Test for get reservation list")
     public void getReservationTest() {
-        Assertions.assertEquals(reservation, user.getReservationList().get(0));
+        Assertions.assertEquals(reservation, client.getReservationList().get(0));
     }
 }

@@ -31,6 +31,8 @@ public class FakerService {
     HotelRepository hotelRepository;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    UserRepository userRepository;
 
 
     @GetMapping(value = "/poblateDatabase")
@@ -41,13 +43,26 @@ public class FakerService {
         createServices();
         createRooms();
         createClients();
+        createUsers();
     }
 
     public void createRoles(){
-        for(int i = 0 ; i < 3;i++) {
+        for(int i = 0 ; i < 2;i++) {
             Role newRole = new Role();
             newRole.setType(i);
             roleRepository.save(newRole);
+        }
+    }
+
+    public void createUsers(){
+        for (int i = 0 ; i < 4; i++) {
+            User newUser = new User();
+            if(i == 0){newUser.setRole(roleRepository.findRoleByType(0));}
+            else{newUser.setRole(roleRepository.findRoleByType(1));}
+            newUser.setName(faker.name().fullName());
+            newUser.setContact(faker.phoneNumber().phoneNumber());
+            newUser.setPassword(faker.internet().password());
+            userRepository.save(newUser);
         }
     }
 

@@ -19,6 +19,10 @@ public class User {
     @Column(name = "contact", nullable = false, length = 50)
     private String contact;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+    private Role role;
+
     public Long getUserId() {
         return userId;
     }
@@ -49,5 +53,13 @@ public class User {
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

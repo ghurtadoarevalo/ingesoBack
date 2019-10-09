@@ -19,7 +19,7 @@ public class HistoryService {
     @Autowired
     private HistoryRepository historyRepository;
     @Autowired
-    private ClientRepository userRepository;
+    private ClientRepository clientRepository;
 
     @GetMapping(value = "/histories")
     @ResponseBody
@@ -32,10 +32,10 @@ public class HistoryService {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public ResponseEntity create(@RequestBody History history) {
-        if (userRepository.findById(history.getUser().getUserId()).isPresent()) {
+        if (clientRepository.findById(history.getClient().getClientId()).isPresent()) {
             History persistenHistory = new History();
             persistenHistory.setAditionalInfo(history.getAditionalInfo());
-            persistenHistory.setUser(history.getUser());
+            persistenHistory.setClient(history.getClient());
             return new ResponseEntity(historyRepository.save(persistenHistory), HttpStatus.CREATED);
         }
 

@@ -31,7 +31,7 @@ import java.sql.Date;
     @Test
     @DisplayName("Test for get estate")
     public void getStateTest() {
-        Assertions.assertEquals("Santiago", reservation.getEstate());
+        Assertions.assertEquals(1, reservation.getEstate());
     }
 
     @Test

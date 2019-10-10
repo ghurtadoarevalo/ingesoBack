@@ -40,72 +40,29 @@ public class RoomService {
 
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity getById(@PathVariable("id") Long id) {
+    public Room getById(@PathVariable("id") Long id) {
         Room roomValue;
         Optional<Room> room = roomRepository.findById(id);
         if(room.isPresent()) {
-            roomValue = room.get();
-            return new ResponseEntity(roomValue, HttpStatus.OK);
-        } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return room.get();
         }
+        return null;
     }
 
     @PostMapping(value = "/create")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public ResponseEntity create(@RequestBody Room room) {
-
-        Boolean verificator = true;
-
-        if(room.getHotel() != null) {
-            if(!hotelRepository.findById(room.getHotel().getHotelId()).isPresent()){
-                verificator = false;
-            }
-        }else{verificator = false;}
-
-        if(room.getReservation() != null) {
-            if(!reservationRepository.findById(room.getReservation().getReservationId()).isPresent()){
-                verificator = false;
-            }
-        }else{verificator = false;}
-
-        if(room.getReservation() != null) {
-            if(!reservationRepository.findById(room.getReservation().getReservationId()).isPresent()){
-                verificator = false;
-            }
-        }else{verificator = false;}
-
-        List<ServiceRoom> serviceRoomList = room.getServiceRooms();
-        if(null != serviceRoomList){
-            for(int i = 0 ; i < serviceRoomList.size();i++){
-                ServiceRoom serviceRoom = serviceRoomList.get(i);
-                if(!roomRepository.findById(serviceRoom.getRoom().getRoomId()).isPresent()){
-                    verificator = false;
-                    break;
-                }
-                if(!serviceRepository.findById(serviceRoom.getService().getServiceId()).isPresent()){
-                    verificator = false;
-                    break;
-                }
-            }
-        }else{verificator = false;}
-
-        if(!verificator){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        else {
-            Room newRoom = new Room();
-            newRoom.setImageLink(room.getImageLink());
-            newRoom.setType(room.getType());
-            newRoom.setRoomNumber(room.getRoomNumber());
-            newRoom.setPrice(room.getPrice());
-            newRoom.setChildCapacity(room.getChildCapacity());
-            newRoom.setAdultCapacity(room.getAdultCapacity());
-            newRoom.setHotel(room.getHotel());
-            newRoom.setReservation(room.getReservation());
-            newRoom.setServiceRooms(room.getServiceRooms());
-            return new ResponseEntity(roomRepository.save(newRoom), HttpStatus.CREATED);
-        }
+        Room newRoom = new Room();
+        newRoom.setImageLink(room.getImageLink());
+        newRoom.setType(room.getType());
+        newRoom.setRoomNumber(room.getRoomNumber());
+        newRoom.setPrice(room.getPrice());
+        newRoom.setChildCapacity(room.getChildCapacity());
+        newRoom.setAdultCapacity(room.getAdultCapacity());
+        newRoom.setHotel(room.getHotel());
+        newRoom.setReservation(room.getReservation());
+        newRoom.setServiceRooms(room.getServiceRooms());
+        return new ResponseEntity(roomRepository.save(newRoom), HttpStatus.CREATED);
     }
 }

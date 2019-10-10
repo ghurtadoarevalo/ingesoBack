@@ -27,21 +27,20 @@ public class ClientService {
 
     @GetMapping(value = "/clients")
     @ResponseBody
-    public ResponseEntity getAll() {
-        List<Client> users = clientRepository.findAll();
-        return new ResponseEntity(users, HttpStatus.OK);
+    public List<Client> getAll() {
+        return clientRepository.findAll();
     }
 
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity getById(@PathVariable ("id") Long id) {
+    public Client getById(@PathVariable ("id") Long id) {
         Client userValue;
         Optional<Client> user = clientRepository.findById(id);
         if(user.isPresent()) {
             userValue = user.get();
-            return new ResponseEntity(userValue, HttpStatus.OK);
+            return userValue;
         } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return null;
         }
 
     }
@@ -50,27 +49,14 @@ public class ClientService {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public ResponseEntity create(@RequestBody Client user) {
-
-        Boolean verificator = true;
-        List<Reservation> reservationList = user.getReservationList();
-        for(int i = 0 ; i < reservationList.size();i++) {
-            if(!reservationRepository.findById(reservationList.get(i).getReservationId()).isPresent()){
-                verificator = false;
-            }
-        }
-        if(!verificator){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        else {
-            Client newClient = new Client();
-            newClient.setName(user.getName());
-            newClient.setContact(user.getContact());
-            newClient.setMail(user.getMail());
-            newClient.setHistory(user.getHistory());
-            newClient.setPassport(user.getPassport());
-            newClient.setReservationList(user.getReservationList());
-            newClient.setRut(user.getRut());
-            return new ResponseEntity(clientRepository.save(newClient), HttpStatus.CREATED);
-        }
+        Client newClient = new Client();
+        newClient.setName(user.getName());
+        newClient.setContact(user.getContact());
+        newClient.setMail(user.getMail());
+        newClient.setHistory(user.getHistory());
+        newClient.setPassport(user.getPassport());
+        newClient.setReservationList(user.getReservationList());
+        newClient.setRut(user.getRut());
+        return new ResponseEntity(clientRepository.save(newClient), HttpStatus.CREATED);
     }
 }

@@ -29,38 +29,19 @@ public class ReservationService {
 
     @GetMapping(value = "/reservations")
     @ResponseBody
-    public ResponseEntity getAll() {
-        List<Reservation> reservations = reservationRepository.findAll();
-        return new ResponseEntity(reservations, HttpStatus.OK);
+    public List<Reservation> getAll() {
+         return reservationRepository.findAll();
     }
 
     @PostMapping(value = "/create")
     @ResponseBody
     public ResponseEntity create(@RequestBody Reservation reservation) {
-
-        List<Room> inputRoomList = reservation.getRoomList();
-        Boolean verification = true;
-
-        for(int i = 0; i < inputRoomList.size();i++) {
-            if(!roomRepository.findById(inputRoomList.get(i).getRoomId()).isPresent()){
-                verification = false;
-                break;
-            }
-        }
-        if(!clientRepository.findById(reservation.getClient().getClientId()).isPresent()){
-            verification = false;
-        }
-
-        if(!verification) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }else{
-            Reservation newReservation = new Reservation();
-            newReservation.setEstate(reservation.getEstate());
-            newReservation.setFinalDate(reservation.getFinalDate());
-            newReservation.setInitialDate(reservation.getInitialDate());
-            newReservation.setRoomList(reservation.getRoomList());
-            newReservation.setClient(reservation.getClient());
-            return new ResponseEntity(reservationRepository.save(newReservation), HttpStatus.CREATED);
-        }
+        Reservation newReservation = new Reservation();
+        newReservation.setEstate(reservation.getEstate());
+        newReservation.setFinalDate(reservation.getFinalDate());
+        newReservation.setInitialDate(reservation.getInitialDate());
+        newReservation.setRoomList(reservation.getRoomList());
+        newReservation.setClient(reservation.getClient());
+        return new ResponseEntity(reservationRepository.save(newReservation), HttpStatus.CREATED);
     }
 }

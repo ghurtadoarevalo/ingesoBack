@@ -31,11 +31,12 @@ public class Room {
     @Column(name = "image_link", nullable = false, length = 50)
     private String imageLink;
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="reservation_id", nullable=true)
     private Reservation reservation;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="hotel_id", nullable=false)
     private Hotel hotel;

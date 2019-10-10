@@ -1,7 +1,7 @@
 package mingeso.mingeso.services;
 
+import mingeso.mingeso.dto.ClientDTO;
 import mingeso.mingeso.models.Client;
-import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

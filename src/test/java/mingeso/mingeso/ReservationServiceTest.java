@@ -1,5 +1,6 @@
 package mingeso.mingeso;
 
+import mingeso.mingeso.dto.ReservationDTO;
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.services.ReservationService;
@@ -45,7 +46,7 @@ public class ReservationServiceTest {
     @Test
     @DisplayName("Test for create reservation")
     public void createReservationTest() {
-        Reservation reservation = new Reservation();
+        ReservationDTO reservation = new ReservationDTO();
         when(reservationService.create(reservation)).thenReturn(new ResponseEntity(reservation, HttpStatus.CREATED));
         Assertions.assertEquals(reservation, reservation);
     }

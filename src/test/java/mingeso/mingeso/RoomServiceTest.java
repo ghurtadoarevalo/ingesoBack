@@ -1,5 +1,6 @@
 package mingeso.mingeso;
 
+import mingeso.mingeso.dto.RoomDTO;
 import mingeso.mingeso.models.Hotel;
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Room;
@@ -69,9 +70,9 @@ public class RoomServiceTest {
 
     @Test
     public void createRoomTest() {
-        Room room = new Room();
+        RoomDTO room = new RoomDTO();
         Hotel hotel = new Hotel();
-        hotel.setOwnerName("franco");
+        hotel.setOwnerName("Franco");
         Reservation reservation = new Reservation();
         ServiceRoom serviceRoom = new ServiceRoom();
         List<ServiceRoom> serviceRooms = new ArrayList<>();

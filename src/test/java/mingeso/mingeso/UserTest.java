@@ -37,7 +37,7 @@ public class UserTest {
         Date date = java.sql.Date.valueOf("2019-03-13");
         ArrayList<Room> rooms = new ArrayList<>();
         ArrayList<Reservation> reservations = new ArrayList<>();
-        reservation = new Reservation(date, date, 0, client, rooms);
+        reservation = new Reservation(0, client, rooms,null);
         reservations.add(reservation);
         client.setHistory(history);
         client.setReservationList(reservations);

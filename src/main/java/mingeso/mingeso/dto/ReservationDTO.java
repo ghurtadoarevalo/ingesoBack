@@ -1,6 +1,7 @@
 package mingeso.mingeso.dto;
 
 import mingeso.mingeso.models.Client;
+import mingeso.mingeso.models.Day;
 import mingeso.mingeso.models.Room;
 
 import javax.persistence.*;
@@ -11,11 +12,11 @@ import java.util.List;
 public class ReservationDTO implements Serializable {
 
     private Long reservationId;
-    private Date initialDate;
-    private Date finalDate;
+
     private int estate;
     private Client client;
     private List<Room> roomList;
+    private List<Day> dateList;
 
     public Long getReservationId() {
         return reservationId;
@@ -25,20 +26,12 @@ public class ReservationDTO implements Serializable {
         this.reservationId = reservationId;
     }
 
-    public Date getInitialDate() {
-        return initialDate;
+    public List<Day> getDateList() {
+        return dateList;
     }
 
-    public void setInitialDate(Date initialDate) {
-        this.initialDate = initialDate;
-    }
-
-    public Date getFinalDate() {
-        return finalDate;
-    }
-
-    public void setFinalDate(Date finalDate) {
-        this.finalDate = finalDate;
+    public void setDateList(List<Day> dateList) {
+        this.dateList = dateList;
     }
 
     public int getEstate() {

@@ -36,9 +36,7 @@ import java.util.ArrayList;
         rooms.add(room);
         reservation.setEstate(1);
         Date date = java.sql.Date.valueOf("2019-03-13");
-        reservation.setFinalDate(date);
         reservation.setReservationId(reservationId);
-        reservation.setInitialDate(date);
         reservation.setClient(client);
         reservation.setRoomList(rooms);
     }
@@ -57,19 +55,6 @@ import java.util.ArrayList;
         Assertions.assertEquals(reservationId, realReservationId);
     }
 
-    @Test
-    @DisplayName("Test for get initial Date")
-    public void getInitialDateTest() {
-        Date date = java.sql.Date.valueOf("2019-03-13");
-        Assertions.assertEquals(date, reservation.getInitialDate());
-    }
-
-    @Test
-    @DisplayName("Test for get final date")
-    public void getFinalDateTest() {
-        Date date = java.sql.Date.valueOf("2019-03-13");
-        Assertions.assertEquals(date, reservation.getFinalDate());
-    }
 
     @Test
     @DisplayName("Test for get client")

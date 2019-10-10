@@ -2,6 +2,7 @@ package mingeso.mingeso.services;
 
 
 import com.github.javafaker.Faker;
+import mingeso.mingeso.FakerSingleton;
 import mingeso.mingeso.models.*;
 import mingeso.mingeso.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,6 @@ import java.util.List;
 public class FakerService {
 
     @Autowired
-    Faker faker;
-    @Autowired
     RoomRepository roomRepository;
     @Autowired
     ServiceRepository serviceRepository;
@@ -33,6 +32,8 @@ public class FakerService {
     RoleRepository roleRepository;
     @Autowired
     UserRepository userRepository;
+
+    FakerSingleton fakerSingleton =  new FakerSingleton();;
 
 
     @GetMapping(value = "/poblateDatabase")
@@ -55,6 +56,7 @@ public class FakerService {
     }
 
     public void createUsers(){
+        Faker faker = fakerSingleton.getFaker();
         for (int i = 0 ; i < 4; i++) {
             User newUser = new User();
             if(i == 0){newUser.setRole(roleRepository.findRoleByType(0));}
@@ -67,6 +69,7 @@ public class FakerService {
     }
 
     public void createHotel(){
+        Faker faker = fakerSingleton.getFaker();
         Hotel hotel = new Hotel();
         hotel.setContact("56964933854");
         hotel.setImageLink(faker.internet().image());
@@ -77,7 +80,7 @@ public class FakerService {
     }
 
     public void createServices(){
-
+        Faker faker = fakerSingleton.getFaker();
         List<String> servicesNames = new ArrayList<>();
         servicesNames.add("Tenis");
         servicesNames.add("Autos");
@@ -103,6 +106,7 @@ public class FakerService {
     }
 
     public void createRooms(){
+        Faker faker = fakerSingleton.getFaker();
         Hotel hotel = hotelRepository.findAll().get(0);
         for(int i = 0; i < 8;i++){
             Room newRoom = new Room();
@@ -122,6 +126,7 @@ public class FakerService {
     }
 
     public void createClients(){
+        Faker faker = fakerSingleton.getFaker();
         for (int i = 0 ; i < 50; i++) {
             Client newClient = new Client();
             History newHistory = new History();
@@ -137,6 +142,7 @@ public class FakerService {
 
 
     public String createRut(){
+        Faker faker = fakerSingleton.getFaker();
         StringBuilder rut = new StringBuilder();
         int inicio = faker.number().numberBetween(0,1);
         if(inicio == 1){rut.append(inicio);}
@@ -152,6 +158,7 @@ public class FakerService {
     }
 
     public String createPassport(){
+        Faker faker = fakerSingleton.getFaker();
         StringBuilder passport = new StringBuilder();
         passport.append(faker.name().fullName().substring(0,3).toUpperCase());
         for(int i = 0 ; i < 6;i++) {

@@ -38,10 +38,11 @@ public class ReservationService {
     public ResponseEntity create(@RequestBody ReservationDTO reservationDTO) {
         Reservation newReservation = new Reservation();
         newReservation.setEstate(reservationDTO.getEstate());
-        newReservation.setFinalDate(reservationDTO.getFinalDate());
-        newReservation.setInitialDate(reservationDTO.getInitialDate());
+
+        newReservation.setDates(reservationDTO.getDateList());
         newReservation.setRoomList(reservationDTO.getRoomList());
         newReservation.setClient(reservationDTO.getClient());
+        
         return new ResponseEntity(reservationRepository.save(newReservation), HttpStatus.CREATED);
     }
 }

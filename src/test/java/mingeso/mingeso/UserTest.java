@@ -34,10 +34,11 @@ public class UserTest {
         client.setPassport("029123");
 
         history = new History("Hola", client);
-        Date date = java.sql.Date.valueOf("2019-03-13");
+        Date initialDate = java.sql.Date.valueOf("2019-03-13");
+        Date finalDate = java.sql.Date.valueOf("2019-03-14");
         ArrayList<Room> rooms = new ArrayList<>();
         ArrayList<Reservation> reservations = new ArrayList<>();
-        reservation = new Reservation(0, client, rooms,null);
+        reservation = new Reservation(0, client, rooms,initialDate,finalDate);
         reservations.add(reservation);
         client.setHistory(history);
         client.setReservationList(reservations);

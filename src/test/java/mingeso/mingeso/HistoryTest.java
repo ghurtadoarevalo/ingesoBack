@@ -1,5 +1,6 @@
 package mingeso.mingeso;
 
+import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.History;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,13 +16,18 @@ public class HistoryTest {
 
     private History history;
 
+    private Client client;
+
     @BeforeEach
     public void initializeHistory() {
 
         history = new History();
+        client = new Client();
         long historyId = 5;
+        client.setClientId(historyId);
         history.setAditionalInfo("Hola");
         history.setHistoryId(historyId);
+        history.setClient(client);
     }
 
     @Test
@@ -36,5 +42,11 @@ public class HistoryTest {
         long historyId = 5;
         long realHistoryId = history.getHistoryId();
         Assertions.assertEquals(historyId, realHistoryId);
+    }
+
+    @Test
+    @DisplayName("Test for get client")
+    public void getClientTest() {
+        Assertions.assertEquals(client, history.getClient());
     }
 }

@@ -1,6 +1,7 @@
 package mingeso.mingeso;
 
 import mingeso.mingeso.models.Role;
+import mingeso.mingeso.models.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,10 +15,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class RoleTest {
 
     private Role role;
+    private Role secondRole;
 
     @BeforeEach
     public void initializeRole() {
         role = new Role();
+        User user = new User();
+        secondRole = new Role(0, user);
         long roleId = 5;
         role.setRoleId(roleId);
         role.setType(0);

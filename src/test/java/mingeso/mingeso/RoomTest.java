@@ -1,6 +1,6 @@
 package mingeso.mingeso;
 
-import mingeso.mingeso.models.Room;
+import mingeso.mingeso.models.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,16 +9,41 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class RoomTest {
 
     private Room room;
 
+    private Reservation reservation;
+
+    private Hotel hotel;
+
+    private ArrayList<ServiceRoom> serviceRooms;
+
     @BeforeEach
     public void initializeRoom() {
+        long serviceId = 7;
         room = new Room();
+        reservation = new Reservation();
+        hotel = new Hotel();
+        ServiceRoomKey serviceRoomKey = new ServiceRoomKey();
+        Service service = new Service();
+        service.setServiceId(serviceId);
+        serviceRoomKey.setServiceId(serviceId);
+        serviceRoomKey.setRoomId(serviceId);
+        ServiceRoom serviceRoom = new ServiceRoom();
+        serviceRoom.setSrId(serviceRoomKey);
+        Date date = java.sql.Date.valueOf("2019-03-13");
+        serviceRoom.setDate(date);
+        serviceRooms = new ArrayList<>();
+        serviceRooms.add(serviceRoom);
         long roomId = 7;
+        reservation.setReservationId(roomId);
+        hotel.setHotelId(roomId);
         room.setRoomId(roomId);
         room.setAdultCapacity(5);
         room.setChildCapacity(5);
@@ -26,6 +51,9 @@ public class RoomTest {
         room.setType(2);
         room.setRoomNumber(101);
         room.setImageLink("https://hotelvarunamanizales.com/wp-content/uploads/2016/02/habitacion-superior-sencilla-hotel-manizales-varuna-4.jpg");
+        room.setReservation(reservation);
+        room.setHotel(hotel);
+        room.setServiceRooms(serviceRooms);
     }
 
     @Test
@@ -71,5 +99,23 @@ public class RoomTest {
         long roomId = 7;
         long realRoomId = room.getRoomId();
         Assertions.assertEquals(roomId, realRoomId);
+    }
+
+    @Test
+    @DisplayName("Test for get reservation")
+    public void getReservationTest() {
+        Assertions.assertEquals(reservation, room.getReservation());
+    }
+
+    @Test
+    @DisplayName("Test for get hotel")
+    public void getHotelTest() {
+        Assertions.assertEquals(hotel, room.getHotel());
+    }
+
+    @Test
+    @DisplayName("Test for get service rooms")
+    public void getServiceRooms() {
+        Assertions.assertEquals(serviceRooms, room.getServiceRooms());
     }
 }

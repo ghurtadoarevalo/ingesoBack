@@ -1,6 +1,8 @@
 package mingeso.mingeso;
 
+import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.Reservation;
+import mingeso.mingeso.models.Room;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -17,15 +20,27 @@ import java.sql.Date;
 
     private Reservation reservation;
 
+    private Client client;
+
+    private ArrayList<Room> rooms;
+
     @BeforeEach
     public void initializeReservation() {
         reservation = new Reservation();
+        client = new Client();
+        rooms = new ArrayList<>();
+        Room room = new Room();
         long reservationId = 5;
+        client.setClientId(reservationId);
+        room.setRoomId(reservationId);
+        rooms.add(room);
         reservation.setEstate(1);
         Date date = java.sql.Date.valueOf("2019-03-13");
         reservation.setFinalDate(date);
         reservation.setReservationId(reservationId);
         reservation.setInitialDate(date);
+        reservation.setClient(client);
+        reservation.setRoomList(rooms);
     }
 
     @Test
@@ -54,5 +69,17 @@ import java.sql.Date;
     public void getFinalDateTest() {
         Date date = java.sql.Date.valueOf("2019-03-13");
         Assertions.assertEquals(date, reservation.getFinalDate());
+    }
+
+    @Test
+    @DisplayName("Test for get client")
+    public void getClientTest() {
+        Assertions.assertEquals(client, reservation.getClient());
+    }
+
+    @Test
+    @DisplayName("Test for get rooms")
+    public void getRoomsTest() {
+        Assertions.assertEquals(rooms, reservation.getRoomList());
     }
 }

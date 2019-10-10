@@ -80,11 +80,7 @@ public class RoomService {
         if(null != serviceRoomList){
             for(int i = 0 ; i < serviceRoomList.size();i++){
                 ServiceRoom serviceRoom = serviceRoomList.get(i);
-                if(!roomRepository.findById(serviceRoom.getRoom().getRoomId()).isPresent()){
-                    verificator = false;
-                    break;
-                }
-                if(!serviceRepository.findById(serviceRoom.getService().getServiceId()).isPresent()){
+                if(!roomRepository.findById(serviceRoom.getRoom().getRoomId()).isPresent() || !serviceRepository.findById(serviceRoom.getService().getServiceId()).isPresent()){
                     verificator = false;
                     break;
                 }

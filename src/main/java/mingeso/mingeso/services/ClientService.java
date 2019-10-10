@@ -1,10 +1,8 @@
 package mingeso.mingeso.services;
 
 import mingeso.mingeso.models.Reservation;
-import mingeso.mingeso.models.Role;
 import mingeso.mingeso.models.Client;
 import mingeso.mingeso.repositories.ReservationRepository;
-import mingeso.mingeso.repositories.RoleRepository;
 import mingeso.mingeso.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +54,7 @@ public class ClientService {
         Boolean verificator = true;
         List<Reservation> reservationList = user.getReservationList();
         for(int i = 0 ; i < reservationList.size();i++) {
-            if(null == reservationRepository.findById(reservationList.get(i).getReservationId())){
+            if(!reservationRepository.findById(reservationList.get(i).getReservationId()).isPresent()){
                 verificator = false;
             }
         }

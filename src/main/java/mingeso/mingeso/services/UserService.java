@@ -1,6 +1,5 @@
 package mingeso.mingeso.services;
 
-import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.Role;
 import mingeso.mingeso.models.User;
 import mingeso.mingeso.repositories.RoleRepository;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Action;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,11 +31,13 @@ public class UserService {
         List<User> users = userRepository.findAll();
         Optional<Role> role = roleRepository.findById(id);
         ArrayList<User> usersByRol = new ArrayList<>();
-        for(User us : users) {
-            if(us.getRole() == role.get()) {
-                usersByRol.add(us);
+        if(role.isPresent()) {
+            for(User us : users) {
+                if(us.getRole() == role.get()) {
+                    usersByRol.add(us);
+                }
             }
-        }
+        }  
         return new ResponseEntity(usersByRol, HttpStatus.OK);
     }
 

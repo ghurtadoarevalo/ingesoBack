@@ -34,9 +34,8 @@ public class RoomService {
 
     @GetMapping(value = "/rooms")
     @ResponseBody
-    public ResponseEntity getAll() {
-        List<Room> rooms = roomRepository.findAll();
-        return new ResponseEntity(rooms, HttpStatus.OK);
+    public List<Room> getAll() {
+        return roomRepository.findAll();
     }
 
     @GetMapping(value = "/{id}")

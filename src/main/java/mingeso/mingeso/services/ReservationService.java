@@ -2,7 +2,6 @@ package mingeso.mingeso.services;
 
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Room;
-import mingeso.mingeso.models.Client;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.RoomRepository;
 import mingeso.mingeso.repositories.ClientRepository;
@@ -43,12 +42,12 @@ public class ReservationService {
         Boolean verification = true;
 
         for(int i = 0; i < inputRoomList.size();i++) {
-            if(null==roomRepository.findById(inputRoomList.get(i).getRoomId())){
+            if(!roomRepository.findById(inputRoomList.get(i).getRoomId()).isPresent()){
                 verification = false;
                 break;
             }
         }
-        if(null == clientRepository.findById(reservation.getClient().getClientId())){
+        if(!clientRepository.findById(reservation.getClient().getClientId()).isPresent()){
             verification = false;
         }
 

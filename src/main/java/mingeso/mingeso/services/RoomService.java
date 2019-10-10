@@ -1,7 +1,6 @@
 package mingeso.mingeso.services;
 
 import mingeso.mingeso.models.Room;
-import mingeso.mingeso.models.ServiceRoom;
 import mingeso.mingeso.repositories.HotelRepository;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.RoomRepository;
@@ -41,7 +40,6 @@ public class RoomService {
     @GetMapping(value = "/{id}")
     @ResponseBody
     public Room getById(@PathVariable("id") Long id) {
-        Room roomValue;
         Optional<Room> room = roomRepository.findById(id);
         if(room.isPresent()) {
             return room.get();

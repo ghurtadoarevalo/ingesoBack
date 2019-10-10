@@ -1,6 +1,5 @@
 package mingeso.mingeso.services;
 
-import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Client;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.ClientRepository;

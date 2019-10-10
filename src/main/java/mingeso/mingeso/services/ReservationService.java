@@ -1,7 +1,6 @@
 package mingeso.mingeso.services;
 
 import mingeso.mingeso.models.Reservation;
-import mingeso.mingeso.models.Room;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.RoomRepository;
 import mingeso.mingeso.repositories.ClientRepository;

@@ -16,6 +16,9 @@ public class ClientDTO implements Serializable {
     private String mail;
     private String passport;
 
+    private History history;
+    private List<Reservation> reservationList;
+
     public Long getClientId() {
         return clientId;
     }
@@ -62,5 +65,21 @@ public class ClientDTO implements Serializable {
 
     public void setPassport(String passport) {
         this.passport = passport;
+    }
+
+    public History getHistory() {
+        return history;
+    }
+
+    public void setHistory(History history) {
+        this.history = history;
+    }
+
+    public List<Reservation> getReservationList() {
+        return reservationList;
+    }
+
+    public void setReservationList(List<Reservation> reservationList) {
+        this.reservationList = reservationList;
     }
 }

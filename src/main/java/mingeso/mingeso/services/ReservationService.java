@@ -1,5 +1,6 @@
 package mingeso.mingeso.services;
 
+import mingeso.mingeso.dto.ReservationDTO;
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.RoomRepository;
@@ -34,13 +35,13 @@ public class ReservationService {
 
     @PostMapping(value = "/create")
     @ResponseBody
-    public ResponseEntity create(@RequestBody Reservation reservation) {
+    public ResponseEntity create(@RequestBody ReservationDTO reservationDTO) {
         Reservation newReservation = new Reservation();
-        newReservation.setEstate(reservation.getEstate());
-        newReservation.setFinalDate(reservation.getFinalDate());
-        newReservation.setInitialDate(reservation.getInitialDate());
-        newReservation.setRoomList(reservation.getRoomList());
-        newReservation.setClient(reservation.getClient());
+        newReservation.setEstate(reservationDTO.getEstate());
+        newReservation.setFinalDate(reservationDTO.getFinalDate());
+        newReservation.setInitialDate(reservationDTO.getInitialDate());
+        newReservation.setRoomList(reservationDTO.getRoomList());
+        newReservation.setClient(reservationDTO.getClient());
         return new ResponseEntity(reservationRepository.save(newReservation), HttpStatus.CREATED);
     }
 }

@@ -20,10 +20,6 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
-    @Autowired
-    private ReservationRepository reservationRepository;
-
-
     @GetMapping(value = "/clients")
     @ResponseBody
     public List<Client> getAll() {
@@ -47,15 +43,15 @@ public class ClientService {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ResponseEntity create(@RequestBody Client user) {
+    public ResponseEntity create(@RequestBody ClientDTO client) {
         Client newClient = new Client();
-        newClient.setName(user.getName());
-        newClient.setContact(user.getContact());
-        newClient.setMail(user.getMail());
-        newClient.setHistory(user.getHistory());
-        newClient.setPassport(user.getPassport());
-        newClient.setReservationList(user.getReservationList());
-        newClient.setRut(user.getRut());
+        newClient.setName(client.getName());
+        newClient.setContact(client.getContact());
+        newClient.setMail(client.getMail());
+        newClient.setHistory(client.getHistory());
+        newClient.setPassport(client.getPassport());
+        newClient.setReservationList(client.getReservationList());
+        newClient.setRut(client.getRut());
         return new ResponseEntity(clientRepository.save(newClient), HttpStatus.CREATED);
     }
 }

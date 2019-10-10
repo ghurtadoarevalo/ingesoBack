@@ -1,5 +1,6 @@
 package mingeso.mingeso;
 
+import mingeso.mingeso.dto.ClientDTO;
 import mingeso.mingeso.models.Client;
 import mingeso.mingeso.repositories.ClientRepository;
 import mingeso.mingeso.services.ClientService;
@@ -63,7 +64,7 @@ public class ClientServiceTest {
     @Test
     @DisplayName("Test for create client")
     public void createClientTest() {
-        Client client = new Client();
+        ClientDTO client = new ClientDTO();
         when(clientService.create(client)).thenReturn(new ResponseEntity(client, HttpStatus.CREATED));
         Assertions.assertEquals(client, client);
     }

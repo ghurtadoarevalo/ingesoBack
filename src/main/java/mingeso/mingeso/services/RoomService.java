@@ -1,5 +1,6 @@
 package mingeso.mingeso.services;
 
+import mingeso.mingeso.dto.RoomDTO;
 import mingeso.mingeso.models.Room;
 import mingeso.mingeso.repositories.HotelRepository;
 import mingeso.mingeso.repositories.ReservationRepository;
@@ -50,17 +51,17 @@ public class RoomService {
     @PostMapping(value = "/create")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ResponseEntity create(@RequestBody Room room) {
+    public ResponseEntity create(@RequestBody RoomDTO roomDTO) {
         Room newRoom = new Room();
-        newRoom.setImageLink(room.getImageLink());
-        newRoom.setType(room.getType());
-        newRoom.setRoomNumber(room.getRoomNumber());
-        newRoom.setPrice(room.getPrice());
-        newRoom.setChildCapacity(room.getChildCapacity());
-        newRoom.setAdultCapacity(room.getAdultCapacity());
-        newRoom.setHotel(room.getHotel());
-        newRoom.setReservation(room.getReservation());
-        newRoom.setServiceRooms(room.getServiceRooms());
+        newRoom.setImageLink(roomDTO.getImageLink());
+        newRoom.setType(roomDTO.getType());
+        newRoom.setRoomNumber(roomDTO.getRoomNumber());
+        newRoom.setPrice(roomDTO.getPrice());
+        newRoom.setChildCapacity(roomDTO.getChildCapacity());
+        newRoom.setAdultCapacity(roomDTO.getAdultCapacity());
+        newRoom.setHotel(roomDTO.getHotel());
+        newRoom.setReservation(roomDTO.getReservation());
+        newRoom.setServiceRooms(roomDTO.getServiceRooms());
         return new ResponseEntity(roomRepository.save(newRoom), HttpStatus.CREATED);
     }
 }

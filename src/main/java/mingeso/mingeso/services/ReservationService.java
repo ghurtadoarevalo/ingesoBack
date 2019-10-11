@@ -42,6 +42,10 @@ public class ReservationService {
 
         Reservation newReservation = new Reservation();
 
+        if(reservationDTO.getClient() == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else{
         Client inputClient = clientRepository.findByPassport(reservationDTO.getClient().getPassport());
         if(inputClient == null){
             Client newClient = new Client();
@@ -73,6 +77,7 @@ public class ReservationService {
         newReservation.setRoomList(roomList);
 
         return new ResponseEntity(reservationRepository.save(newReservation),HttpStatus.CREATED);
+        }
     }
 
 }

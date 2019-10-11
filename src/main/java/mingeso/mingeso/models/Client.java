@@ -16,9 +16,6 @@ public class Client {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "rut", nullable = false, length = 50)
-    private String rut;
-
     @Column(name = "contact", nullable = false, length = 50)
     private String contact;
 
@@ -50,14 +47,6 @@ public class Client {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getRut() {
-        return rut;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
     }
 
     public String getContact() {

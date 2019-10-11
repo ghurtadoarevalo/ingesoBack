@@ -50,7 +50,6 @@ public class ReservationService {
             newClient.setContact(inputClient.getContact());
             newClient.setName(inputClient.getName());
             newClient.setPassport(inputClient.getPassport());
-            newClient.setRut(inputClient.getRut());
             newClient.setHistory(inputClient.getHistory());
             newClient.setReservationList(inputClient.getReservationList());
             newReservation.setClient(newClient);

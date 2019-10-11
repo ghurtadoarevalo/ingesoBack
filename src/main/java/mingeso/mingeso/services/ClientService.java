@@ -50,7 +50,6 @@ public class ClientService {
         newClient.setHistory(client.getHistory());
         newClient.setPassport(client.getPassport());
         newClient.setReservationList(client.getReservationList());
-        newClient.setRut(client.getRut());
         return new ResponseEntity(clientRepository.save(newClient), HttpStatus.CREATED);
     }
 }

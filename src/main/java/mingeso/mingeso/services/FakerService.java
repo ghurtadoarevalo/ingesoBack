@@ -131,30 +131,12 @@ public class FakerService {
             Client newClient = new Client();
             History newHistory = new History();
             newClient.setName(faker.name().fullName());
-            newClient.setRut(createRut());
             newClient.setContact(faker.phoneNumber().phoneNumber());
             newClient.setMail(faker.internet().safeEmailAddress());
             newClient.setPassport(createPassport());
             newClient.setHistory(newHistory);
             clientRepository.save(newClient);
         }
-    }
-
-
-    public String createRut(){
-        Faker faker = fakerSingleton.getFaker();
-        StringBuilder rut = new StringBuilder();
-        int inicio = faker.number().numberBetween(0,1);
-        if(inicio == 1){rut.append(inicio);}
-        rut.append(faker.number().numberBetween(1,9));
-        for(int i = 0; i<6;i++) {
-            int digito = faker.number().numberBetween(0,9);
-            rut.append(digito);
-        }
-        int verificador = faker.number().numberBetween(0,11);
-        if(verificador == 10){rut.append("-K");}
-        else{rut.append("-" + verificador);}
-        return rut.toString();
     }
 
     public String createPassport(){

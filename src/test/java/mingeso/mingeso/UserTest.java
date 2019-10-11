@@ -29,7 +29,6 @@ public class UserTest {
         client.setName("Matias");
         client.setContact("60593895");
         client.setMail("Matias@matias.cl");
-        client.setRut("1235678-2");
         client.setClientId(userId);
         client.setPassport("029123");
 
@@ -68,12 +67,6 @@ public class UserTest {
     @DisplayName("Test for get user mail")
     public void getClientMailTest() {
         Assertions.assertEquals("Matias@matias.cl", client.getMail());
-    }
-
-    @Test
-    @DisplayName("Test for get user rut")
-    public void getClientRutTest() {
-        Assertions.assertEquals("1235678-2", client.getRut());
     }
 
     @Test

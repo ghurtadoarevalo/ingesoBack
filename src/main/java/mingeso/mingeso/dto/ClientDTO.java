@@ -11,7 +11,6 @@ public class ClientDTO implements Serializable {
 
     private Long clientId;
     private String name;
-    private String rut;
     private String contact;
     private String mail;
     private String passport;
@@ -33,14 +32,6 @@ public class ClientDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getRut() {
-        return rut;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
     }
 
     public String getContact() {

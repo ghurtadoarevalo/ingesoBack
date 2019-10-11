@@ -1,5 +1,7 @@
 package mingeso.mingeso.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,9 +16,6 @@ public class Client {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "rut", nullable = false, length = 50)
-    private String rut;
-
     @Column(name = "contact", nullable = false, length = 50)
     private String contact;
 
@@ -30,6 +29,7 @@ public class Client {
     @JoinColumn(name = "history_id", referencedColumnName = "history_id")
     private History history;
 
+    @JsonIgnore
     @OneToMany(mappedBy="client")
     private List<Reservation> reservationList;
 
@@ -47,14 +47,6 @@ public class Client {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getRut() {
-        return rut;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
     }
 
     public String getContact() {

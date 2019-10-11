@@ -29,15 +29,15 @@ public class UserTest {
         client.setName("Matias");
         client.setContact("60593895");
         client.setMail("Matias@matias.cl");
-        client.setRut("1235678-2");
         client.setClientId(userId);
         client.setPassport("029123");
 
         history = new History("Hola", client);
-        Date date = java.sql.Date.valueOf("2019-03-13");
+        Date initialDate = java.sql.Date.valueOf("2019-03-13");
+        Date finalDate = java.sql.Date.valueOf("2019-03-14");
         ArrayList<Room> rooms = new ArrayList<>();
         ArrayList<Reservation> reservations = new ArrayList<>();
-        reservation = new Reservation(0, client, rooms,null);
+        reservation = new Reservation(0, client, rooms,initialDate,finalDate);
         reservations.add(reservation);
         client.setHistory(history);
         client.setReservationList(reservations);
@@ -67,12 +67,6 @@ public class UserTest {
     @DisplayName("Test for get user mail")
     public void getClientMailTest() {
         Assertions.assertEquals("Matias@matias.cl", client.getMail());
-    }
-
-    @Test
-    @DisplayName("Test for get user rut")
-    public void getClientRutTest() {
-        Assertions.assertEquals("1235678-2", client.getRut());
     }
 
     @Test

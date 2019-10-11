@@ -34,7 +34,7 @@ import java.util.ArrayList;
         client.setClientId(reservationId);
         room.setRoomId(reservationId);
         rooms.add(room);
-        reservation.setEstate(1);
+        reservation.setState(1);
         Date date = java.sql.Date.valueOf("2019-03-13");
         reservation.setReservationId(reservationId);
         reservation.setClient(client);
@@ -44,7 +44,7 @@ import java.util.ArrayList;
     @Test
     @DisplayName("Test for get estate")
     public void getStateTest() {
-        Assertions.assertEquals(1, reservation.getEstate());
+        Assertions.assertEquals(1, reservation.getState());
     }
 
     @Test

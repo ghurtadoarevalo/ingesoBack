@@ -1,5 +1,7 @@
 package mingeso.mingeso.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class Client {
     @JoinColumn(name = "history_id", referencedColumnName = "history_id")
     private History history;
 
+    @JsonIgnore
     @OneToMany(mappedBy="client")
     private List<Reservation> reservationList;
 

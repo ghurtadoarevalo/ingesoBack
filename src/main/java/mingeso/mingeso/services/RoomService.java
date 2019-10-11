@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +51,7 @@ public class RoomService {
         Date finalDate = reservationDTO.getFinalDate();
 
         List<Room> roomList = roomRepository.findAll();
-
+        List<Room> roomFinal = new ArrayList<>();
         for(int i = 0 ; i < roomList.size();i++)
         {
             boolean validator = false;
@@ -76,15 +77,14 @@ public class RoomService {
                     }
                 }
             }
-            if(validator == false){
-                roomList.remove(roomList.get(i));
+            if(validator == true){
+                roomFinal.add(roomList.get(i));
             }
         }
-
         ReservationDTO reservationOutput = new ReservationDTO();
         reservationOutput.setInitialDate(initialDate);
         reservationOutput.setFinalDate(finalDate);
-        reservationOutput.setRoomList(roomList);
+        reservationOutput.setRoomList(roomFinal);
 
         return reservationOutput;
     }

@@ -15,9 +15,4 @@ public class FakerSingleton {
         }
     }
 
-    private Faker Faker(){
-        return new Faker();
-    }
-
-
 }

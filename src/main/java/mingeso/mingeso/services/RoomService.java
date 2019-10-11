@@ -1,6 +1,8 @@
 package mingeso.mingeso.services;
 
+import mingeso.mingeso.dto.ReservationDTO;
 import mingeso.mingeso.dto.RoomDTO;
+import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Room;
 import mingeso.mingeso.repositories.HotelRepository;
 import mingeso.mingeso.repositories.ReservationRepository;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +40,56 @@ public class RoomService {
     public List<Room> getAll() {
         return roomRepository.findAll();
     }
+
+
+    @GetMapping(value = "/getByDate")
+    @ResponseBody
+    public ReservationDTO getByDate(@RequestBody ReservationDTO reservationDTO) {
+
+        Date initialDate = reservationDTO.getInitialDate();
+        Date finalDate = reservationDTO.getFinalDate();
+
+        List<Room> roomList = roomRepository.findAll();
+
+        for(int i = 0 ; i < roomList.size();i++)
+        {
+            boolean validator = false;
+            Reservation reservation = roomList.get(i).getReservation();
+            if(reservation == null){
+                validator = true;
+            }else {
+
+                Date roomInitialDate = reservation.getInitialDate();
+                Date roomFinalDate = reservation.getFinalDate();
+
+                if (roomInitialDate.toString() == "" || roomFinalDate.toString() == "") {
+                    validator = true;
+                } else {
+                    if (initialDate.compareTo(roomInitialDate) < 0) {
+                        if (finalDate.compareTo(roomInitialDate) < 0) {
+                            validator = true;
+                        }
+                    } else {
+                        if (initialDate.compareTo(roomFinalDate) > 0) {
+                            validator = true;
+                        }
+                    }
+                }
+            }
+            if(validator == false){
+                roomList.remove(roomList.get(i));
+            }
+        }
+
+        ReservationDTO reservationOutput = new ReservationDTO();
+        reservationOutput.setInitialDate(initialDate);
+        reservationOutput.setFinalDate(finalDate);
+        reservationOutput.setRoomList(roomList);
+
+        return reservationOutput;
+    }
+
+
 
     @GetMapping(value = "/{id}")
     @ResponseBody

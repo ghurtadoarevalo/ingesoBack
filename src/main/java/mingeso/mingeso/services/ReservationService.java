@@ -60,8 +60,6 @@ public class ReservationService {
         newReservation.setInitialDate(reservationDTO.getInitialDate());
         newReservation.setFinalDate(reservationDTO.getFinalDate());
 
-
-
         List<Room> roomList = new ArrayList<>();
 
         for(int i = 0 ; i < reservationDTO.getRoomList().size();i++)

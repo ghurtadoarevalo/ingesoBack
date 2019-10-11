@@ -62,5 +62,5 @@ public class ReservationService {
         
         return new ResponseEntity(reservationRepository.save(newReservation), HttpStatus.CREATED);
     }
-    
+
 }

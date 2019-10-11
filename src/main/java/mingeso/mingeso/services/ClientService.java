@@ -37,7 +37,6 @@ public class ClientService {
         } else {
             return null;
         }
-
     }
 
     @PostMapping

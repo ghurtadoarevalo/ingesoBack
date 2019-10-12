@@ -13,9 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import static com.sun.deploy.trace.Trace.flush;
 
 @Controller
 @RequestMapping(value = "/reservation")
@@ -43,6 +42,10 @@ public class ReservationService {
 
         Reservation newReservation = new Reservation();
 
+        if(reservationDTO.getClient() == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else{
         Client inputClient = clientRepository.findByPassport(reservationDTO.getClient().getPassport());
         if(inputClient == null){
             Client newClient = new Client();
@@ -60,21 +63,21 @@ public class ReservationService {
         newReservation.setState(reservationDTO.getState());
         newReservation.setInitialDate(reservationDTO.getInitialDate());
         newReservation.setFinalDate(reservationDTO.getFinalDate());
-        newReservation.setRoomList(reservationDTO.getRoomList());
 
-        reservationRepository.save(newReservation);
-
-        flush();
+        List<Room> roomList = new ArrayList<>();
 
         for(int i = 0 ; i < reservationDTO.getRoomList().size();i++)
         {
             long id = reservationDTO.getRoomList().get(i).getRoomId();
             Room room = roomRepository.findByRoomId(id);
             room.setReservation(newReservation);
-            roomRepository.save(room);
+            roomList.add(room);
         }
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        newReservation.setRoomList(roomList);
+
+        return new ResponseEntity(reservationRepository.save(newReservation),HttpStatus.CREATED);
+        }
     }
 
 }

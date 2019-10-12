@@ -2,6 +2,7 @@ package mingeso.mingeso;
 
 import mingeso.mingeso.dto.ReservationDTO;
 import mingeso.mingeso.models.Reservation;
+import mingeso.mingeso.models.Room;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.services.ReservationService;
 import org.junit.jupiter.api.Assertions;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,6 +49,7 @@ public class ReservationServiceTest {
     @DisplayName("Test for create reservation")
     public void createReservationTest() {
         ReservationDTO reservation = new ReservationDTO();
+        reservation.setRoomList(new ArrayList<Room>());
         when(reservationService.create(reservation)).thenReturn(new ResponseEntity(reservation, HttpStatus.CREATED));
         Assertions.assertEquals(reservation, reservation);
     }

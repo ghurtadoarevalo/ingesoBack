@@ -87,6 +87,6 @@ public class Reservation {
         this.client = client;
         this.roomList = roomList;
         this.initialDate = initialDate;
-        this.finalDate = initialDate;
+        this.finalDate = finalDate;
     }
 }

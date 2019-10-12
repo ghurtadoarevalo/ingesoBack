@@ -41,6 +41,10 @@ public class ReservationService {
     public ResponseEntity create(@RequestBody ReservationDTO reservationDTO) {
 
         Reservation newReservation = new Reservation();
+        List<Reservation> reservations = new ArrayList<>();
+        newReservation.setInitialDate(reservationDTO.getInitialDate());
+        newReservation.setFinalDate(reservationDTO.getFinalDate());
+
 
         if(reservationDTO.getClient() == null){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -49,20 +53,16 @@ public class ReservationService {
         Client inputClient = clientRepository.findByPassport(reservationDTO.getClient().getPassport());
         if(inputClient == null){
             Client newClient = new Client();
-            newClient.setMail(inputClient.getMail());
-            newClient.setContact(inputClient.getContact());
-            newClient.setName(inputClient.getName());
-            newClient.setPassport(inputClient.getPassport());
-            newClient.setHistory(inputClient.getHistory());
-            newClient.setReservationList(inputClient.getReservationList());
+            newClient.setMail(reservationDTO.getClient().getMail());
+            newClient.setContact(reservationDTO.getClient().getContact());
+            newClient.setName(reservationDTO.getClient().getName());
+            newClient.setPassport(reservationDTO.getClient().getPassport());
+            reservations.add(newReservation);
             newReservation.setClient(newClient);
+
         }else{
             newReservation.setClient(inputClient);
         }
-
-        newReservation.setState(reservationDTO.getState());
-        newReservation.setInitialDate(reservationDTO.getInitialDate());
-        newReservation.setFinalDate(reservationDTO.getFinalDate());
 
         List<Room> roomList = new ArrayList<>();
 

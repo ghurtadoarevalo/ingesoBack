@@ -15,7 +15,7 @@ public class Reservation {
     @Column(name = "state", nullable = false, length = 2)
     private int state;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="client_id", nullable=false)
     private Client client;
 

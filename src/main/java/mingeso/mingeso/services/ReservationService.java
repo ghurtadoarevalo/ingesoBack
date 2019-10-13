@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Controller
@@ -36,6 +38,39 @@ public class ReservationService {
     @ResponseBody
     public List<Reservation> getAll() {
          return reservationRepository.findAll();
+    }
+
+    @GetMapping(value = "/reservationsDates")
+    @ResponseBody
+    public List<ReservationResponseDTO> getReservationDates() {
+        List<ReservationResponseDTO> reservationResponseDTOS = new ArrayList<>();
+        List<Reservation> reservationList = reservationRepository.findAll();
+
+
+        for(int i = 0 ; i < reservationList.size();i++) {
+            System.out.println("Reseva "+i);
+            ReservationResponseDTO reservationResponseDTO = new ReservationResponseDTO();
+            List<Room> roomList = new ArrayList<>();
+
+            Reservation reservation = reservationList.get(i);
+            reservationResponseDTO.setInitialDate(reservation.getInitialDate());
+            reservationResponseDTO.setFinalDate(reservation.getFinalDate());
+            List<RoomReservation> roomReservations = reservation.getRoomReservations();
+            for(int j = 0 ; j < roomReservations.size();j++){
+                System.out.println("Habitacion "+ j);
+                RoomReservation roomReservation = roomReservations.get(j);
+                roomList.add(roomReservation.getRoom());
+            }
+            List<Date> dates = getDatesInRange(reservation.getInitialDate(),reservation.getFinalDate());
+
+            reservationResponseDTO.setRoomList(roomList);
+            reservationResponseDTO.setDateList(dates);
+            reservationResponseDTO.setClient(reservation.getClient());
+            reservationResponseDTO.setState(reservation.getState());
+            reservationResponseDTOS.add(reservationResponseDTO);
+        }
+
+        return reservationResponseDTOS;
     }
 
 
@@ -88,6 +123,22 @@ public class ReservationService {
 
         return new ResponseEntity(reservationRepository.save(newReservation),HttpStatus.CREATED);
         }
+    }
+
+    public List<Date> getDatesInRange(Date initialDate, Date finalDate){
+        List<Date> dates = new ArrayList<>();
+        Calendar calendar = new GregorianCalendar();
+        Calendar endCalendar = new GregorianCalendar();
+        calendar.setTime(initialDate);
+        endCalendar.setTime(finalDate);
+        while (calendar.before(endCalendar)) {
+            java.util.Date result = calendar.getTime();
+            Date sqlDate = new Date(result.getTime());
+            dates.add(sqlDate);
+            calendar.add(Calendar.DATE, 1);
+        }
+        dates.add(finalDate);
+        return dates;
     }
 
 }

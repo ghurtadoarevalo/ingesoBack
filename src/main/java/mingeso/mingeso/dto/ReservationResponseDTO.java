@@ -15,7 +15,7 @@ public class ReservationResponseDTO implements Serializable {
     private List<Room> roomList;
     private Date initialDate;
     private Date finalDate;
-    private List<Date> dateList;
+    private List<String> dateList;
 
     public Long getReservationId() {
         return reservationId;
@@ -65,11 +65,11 @@ public class ReservationResponseDTO implements Serializable {
         this.finalDate = finalDate;
     }
 
-    public List<Date> getDateList() {
+    public List<String> getDateList() {
         return dateList;
     }
 
-    public void setDateList(List<Date> dateList) {
+    public void setDateList(List<String> dateList) {
         this.dateList = dateList;
     }
 }

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -48,7 +50,6 @@ public class ReservationService {
 
 
         for(int i = 0 ; i < reservationList.size();i++) {
-            System.out.println("Reseva "+i);
             ReservationResponseDTO reservationResponseDTO = new ReservationResponseDTO();
             List<Room> roomList = new ArrayList<>();
 
@@ -57,11 +58,10 @@ public class ReservationService {
             reservationResponseDTO.setFinalDate(reservation.getFinalDate());
             List<RoomReservation> roomReservations = reservation.getRoomReservations();
             for(int j = 0 ; j < roomReservations.size();j++){
-                System.out.println("Habitacion "+ j);
                 RoomReservation roomReservation = roomReservations.get(j);
                 roomList.add(roomReservation.getRoom());
             }
-            List<Date> dates = getDatesInRange(reservation.getInitialDate(),reservation.getFinalDate());
+            List<String> dates = getDatesInRange(reservation.getInitialDate(),reservation.getFinalDate());
 
             reservationResponseDTO.setRoomList(roomList);
             reservationResponseDTO.setDateList(dates);
@@ -125,8 +125,8 @@ public class ReservationService {
         }
     }
 
-    public List<Date> getDatesInRange(Date initialDate, Date finalDate){
-        List<Date> dates = new ArrayList<>();
+    public List<String> getDatesInRange(Date initialDate, Date finalDate){
+        List<String> dates = new ArrayList<>();
         Calendar calendar = new GregorianCalendar();
         Calendar endCalendar = new GregorianCalendar();
         calendar.setTime(initialDate);
@@ -134,11 +134,17 @@ public class ReservationService {
         while (calendar.before(endCalendar)) {
             java.util.Date result = calendar.getTime();
             Date sqlDate = new Date(result.getTime());
-            dates.add(sqlDate);
+            dates.add(changeDateFormat(sqlDate));
             calendar.add(Calendar.DATE, 1);
         }
-        dates.add(finalDate);
+        dates.add(changeDateFormat(finalDate));
         return dates;
+    }
+
+    public String changeDateFormat(java.sql.Date date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formatDate = dateFormat.format(date);
+        return formatDate;
     }
 
 }

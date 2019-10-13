@@ -24,9 +24,8 @@ public class HistoryService {
 
     @GetMapping(value = "/histories")
     @ResponseBody
-    public ResponseEntity getAll() {
-        List<History> histories = historyRepository.findAll();
-        return new ResponseEntity(histories, HttpStatus.OK);
+    public List<History> getAll() {
+        return historyRepository.findAll();
     }
 
     @PostMapping(value = "/create")

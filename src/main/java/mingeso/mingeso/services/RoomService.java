@@ -63,7 +63,7 @@ public class RoomService {
                 Date roomInitialDate = reservation.getInitialDate();
                 Date roomFinalDate = reservation.getFinalDate();
 
-                if (roomInitialDate.toString() == "" || roomFinalDate.toString() == "") {
+                if (roomInitialDate.toString().equals("") || roomFinalDate.toString().equals("")) {
                     validator = true;
                 } else {
                     if (initialDate.compareTo(roomInitialDate) < 0) {
@@ -77,7 +77,7 @@ public class RoomService {
                     }
                 }
             }
-            if(validator == true){
+            if(validator){
                 roomFinal.add(roomList.get(i));
             }
         }

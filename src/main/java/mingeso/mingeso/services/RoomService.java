@@ -39,7 +39,7 @@ public class RoomService {
 
     @GetMapping(value = "/getByDate")
     @ResponseBody
-    public ReservationResponseDTO getByDate(@RequestBody ReservationDTO reservationDTO) {
+    public ReservationResponseDTO getByDate(@RequestBody ReservationResponseDTO reservationDTO) {
 
         Date initialDate = reservationDTO.getInitialDate();
         Date finalDate = reservationDTO.getFinalDate();

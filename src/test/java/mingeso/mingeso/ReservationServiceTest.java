@@ -1,14 +1,11 @@
 package mingeso.mingeso;
 
 import mingeso.mingeso.dto.ReservationDTO;
+import mingeso.mingeso.dto.ReservationResponseDTO;
 import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Room;
-<<<<<<< Updated upstream
 import mingeso.mingeso.repositories.ClientRepository;
-=======
-import mingeso.mingeso.models.RoomReservation;
->>>>>>> Stashed changes
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.services.ReservationService;
 import org.junit.jupiter.api.Assertions;
@@ -53,20 +50,20 @@ public class ReservationServiceTest {
         Assertions.assertEquals(1, reservations.size());
     }
 
-<<<<<<< Updated upstream
     @Test
     @DisplayName("Test for create reservation when client doesn't exist")
     public void createReservationTest() {
-        ReservationDTO reservation = new ReservationDTO();
+        ReservationResponseDTO reservation = new ReservationResponseDTO();
         reservation.setRoomList(new ArrayList<Room>());
         ResponseEntity responseEntity = reservationService.create(reservation);
         Assertions.assertEquals(reservation, reservation);
     }
 
+
     @Test
     @DisplayName("Test for create when client exist")
     public void createClientExisteTest() {
-        ReservationDTO reservation = new ReservationDTO();
+        ReservationResponseDTO reservation = new ReservationResponseDTO();
         Client client = new Client();
         client.setPassport("123");
         reservation.setClient(client);
@@ -79,7 +76,7 @@ public class ReservationServiceTest {
     @Test
     @DisplayName("Test create when client not exist in database")
     public void createClientTest() {
-        ReservationDTO reservation = new ReservationDTO();
+        ReservationResponseDTO reservation = new ReservationResponseDTO();
         Client client = new Client();
         client.setPassport("123");
         reservation.setClient(client);
@@ -88,22 +85,5 @@ public class ReservationServiceTest {
         reservationService.create(reservation);
         Assertions.assertEquals(reservation, reservation);
     }
-=======
-    /*
-    @Test
-    @DisplayName("Test for create reservation")
-    public void createReservationTest() {
-        ReservationDTO reservation = new ReservationDTO();
-        List<RoomReservation> roomReservations = new ArrayList<>();
-        RoomReservation roomReservation = new RoomReservation();
-        roomReservation.setRoom(new Room());
 
-        roomReservations.add(roomReservation);
-        reservation.setRoomReservations(roomReservations);
-
-        when(reservationService.create(reservation)).thenReturn(new ResponseEntity(reservation, HttpStatus.CREATED));
-        Assertions.assertEquals(reservation, reservation);
-    }
-    */
->>>>>>> Stashed changes
 }

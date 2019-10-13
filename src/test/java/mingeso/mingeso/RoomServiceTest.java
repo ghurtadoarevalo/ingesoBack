@@ -1,6 +1,7 @@
 package mingeso.mingeso;
 
 import mingeso.mingeso.dto.ReservationDTO;
+import mingeso.mingeso.dto.ReservationResponseDTO;
 import mingeso.mingeso.dto.RoomDTO;
 import mingeso.mingeso.models.*;
 import mingeso.mingeso.repositories.HotelRepository;
@@ -89,17 +90,24 @@ public class RoomServiceTest {
         Assertions.assertEquals(room, room);
     }
 
+
     @Test
     @DisplayName("Test get by date")
     public void testByDateTest() throws Exception{
-        ReservationDTO reservationDTO = new ReservationDTO();
+        ReservationResponseDTO reservationDTO = new ReservationResponseDTO();
         Reservation reservation = new Reservation();
         Date date = java.sql.Date.valueOf("2019-03-13");
         Date date2 = java.sql.Date.valueOf("2019-03-14");
         Room room = new Room();
+
+        RoomReservation roomReservation = new RoomReservation();
+
         reservation.setInitialDate(date);
         reservation.setFinalDate(date2);
-        room.setReservation(reservation);
+
+        roomReservation.setRoom(room);
+        roomReservation.setReservation(reservation);
+
         List<Room> rooms = new ArrayList<>();
         rooms.add(room);
         reservationDTO.setInitialDate(date);

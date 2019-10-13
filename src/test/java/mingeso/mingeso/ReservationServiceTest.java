@@ -71,4 +71,17 @@ public class ReservationServiceTest {
         reservationService.create(reservation);
         Assertions.assertEquals(reservation, reservation);
     }
+
+    @Test
+    @DisplayName("Test create when client not exist in database")
+    public void createClientTest() {
+        ReservationDTO reservation = new ReservationDTO();
+        Client client = new Client();
+        client.setPassport("123");
+        reservation.setClient(client);
+        reservation.setRoomList(new ArrayList<Room>());
+        doReturn(null).when(clientRepository).findByPassport("123");
+        reservationService.create(reservation);
+        Assertions.assertEquals(reservation, reservation);
+    }
 }

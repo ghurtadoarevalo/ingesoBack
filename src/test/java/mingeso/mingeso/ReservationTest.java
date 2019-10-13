@@ -29,6 +29,9 @@ import java.util.ArrayList;
 
     @BeforeEach
     public void initializeReservation() {
+        Date date1 = java.sql.Date.valueOf("2019-03-13");
+        Client client1 = new Client();
+        Reservation reservation1 = new Reservation(0, client1, date1, date1);
         reservation = new Reservation();
         client = new Client();
         roomReservations = new ArrayList<>();

@@ -5,6 +5,7 @@ import mingeso.mingeso.dto.ReservationResponseDTO;
 import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Room;
+import mingeso.mingeso.models.RoomReservation;
 import mingeso.mingeso.repositories.ClientRepository;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.services.ReservationService;
@@ -20,11 +21,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -84,6 +87,31 @@ public class ReservationServiceTest {
         doReturn(null).when(clientRepository).findByPassport("123");
         reservationService.create(reservation);
         Assertions.assertEquals(reservation, reservation);
+    }
+
+    @Test
+    @DisplayName("Test for reservationsDates method")
+    public void reservationsDateTest() {
+        ReservationResponseDTO reservationResponseDTO = new ReservationResponseDTO();
+        Date date = java.sql.Date.valueOf("2019-03-13");
+        Date date1 = java.sql.Date.valueOf("2019-03-17");
+        Reservation reservation = new Reservation();
+        Room room = new Room();
+        Room room1 = new Room();
+        List<Room> rooms = new ArrayList<>();
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        rooms.add(room);
+        rooms.add(room1);
+        reservation.setInitialDate(date);
+        reservation.setFinalDate(date1);
+        Reservation reservation1 = new Reservation();
+        reservation1.setInitialDate(date);
+        reservation1.setFinalDate(date1);
+        reservation.setRoomReservations(roomReservations);
+        reservation1.setRoomReservations(roomReservations);
+        doReturn(Arrays.asList(reservation, reservation1)).when(reservationRepository).findAll();
+        reservationService.getReservationDates();
+        List<Reservation> reservations = new ArrayList<>();
     }
 
 }

@@ -101,13 +101,15 @@ public class RoomServiceTest {
         Room room = new Room();
 
         RoomReservation roomReservation = new RoomReservation();
+        List<RoomReservation> roomReservations = new ArrayList<>();
 
         reservation.setInitialDate(date);
         reservation.setFinalDate(date2);
-
         roomReservation.setRoom(room);
         roomReservation.setReservation(reservation);
-
+        roomReservations.add(roomReservation);
+        roomReservation.setReservation(reservation);
+        room.setRoomReservations(roomReservations);
         List<Room> rooms = new ArrayList<>();
         rooms.add(room);
         reservationDTO.setInitialDate(date);

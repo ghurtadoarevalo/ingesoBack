@@ -1,5 +1,6 @@
 package mingeso.mingeso;
 
+import mingeso.mingeso.dto.ReservationDTO;
 import mingeso.mingeso.dto.RoomDTO;
 import mingeso.mingeso.models.Hotel;
 import mingeso.mingeso.models.Reservation;
@@ -21,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -69,6 +71,7 @@ public class RoomServiceTest {
     }
 
     @Test
+    @DisplayName("Test for create room")
     public void createRoomTest() {
         RoomDTO room = new RoomDTO();
         Hotel hotel = new Hotel();
@@ -85,6 +88,24 @@ public class RoomServiceTest {
         room.setHotel(hotel);
         when(roomService.create(room)).thenReturn(new ResponseEntity(room, HttpStatus.CREATED));
         Assertions.assertEquals(room, room);
+    }
+
+    @Test
+    @DisplayName("Test get by date")
+    public void testByDateTest() throws Exception{
+        ReservationDTO reservationDTO = new ReservationDTO();
+        Room room = new Room();
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(room);
+        Date date = java.sql.Date.valueOf("2019-03-13");
+        Date date2 = java.sql.Date.valueOf("2019-03-14");
+        reservationDTO.setInitialDate(date);
+        reservationDTO.setFinalDate(date2);
+        reservationDTO.setRoomList(rooms);
+        doReturn(Arrays.asList(room)).when(roomRepository).findAll();
+        roomService.getByDate(reservationDTO);
+        Assertions.assertEquals(reservationDTO, reservationDTO);
+
     }
 
 

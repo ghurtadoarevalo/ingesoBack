@@ -45,12 +45,12 @@ public class ReservationServiceTest {
         Assertions.assertEquals(1, reservations.size());
     }
 
-    /*@Test
+    @Test
     @DisplayName("Test for create reservation")
     public void createReservationTest() {
         ReservationDTO reservation = new ReservationDTO();
         reservation.setRoomList(new ArrayList<Room>());
-        when(reservationService.create(reservation)).thenReturn(new ResponseEntity(reservation, HttpStatus.CREATED));
+        reservationService.create(reservation);
         Assertions.assertEquals(reservation, reservation);
-    }*/
+    }
 }

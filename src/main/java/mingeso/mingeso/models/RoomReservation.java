@@ -1,12 +1,9 @@
 package mingeso.mingeso.models;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "room_reservation",schema = "usach")
-@Data
 public class RoomReservation {
 
     @EmbeddedId

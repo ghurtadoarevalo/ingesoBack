@@ -1,16 +1,13 @@
 package mingeso.mingeso.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "reservation",schema = "usach")
-@Data
 public class Reservation {
 
     @Id

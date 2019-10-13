@@ -44,7 +44,7 @@ public class UserTest {
         reservation = new Reservation();
         reservation.setInitialDate(initialDate);
         reservation.setFinalDate(finalDate);
-        List<RoomReservation> roomReservationList = reservation.getRoomReservations();
+        List<RoomReservation> roomReservationList = new ArrayList<>();
 
         for(int i = 0; i < rooms.size();i++){
             RoomReservation roomReservation = new RoomReservation();
@@ -52,7 +52,9 @@ public class UserTest {
             roomReservation.setRoom(rooms.get(i));
             roomReservationList.add(roomReservation);
         }
+
         reservation.setRoomReservations(roomReservationList);
+
         reservations.add(reservation);
         client.setHistory(history);
         client.setReservationList(reservations);

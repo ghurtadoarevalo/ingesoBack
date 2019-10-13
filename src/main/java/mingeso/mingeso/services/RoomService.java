@@ -52,66 +52,67 @@ public class RoomService {
             boolean validator = false;
 
             List<RoomReservation> roomReservations = roomList.get(i).getRoomReservations();
-
-            if(roomReservations.size()==0){
-                validator = true;
-            }else {
-                for (int j = 0; j < roomReservations.size(); j++) {
-                    Reservation reservation = roomReservations.get(j).getReservation();
-                    if (reservation == null) {
-                        validator = true;
-                        break;
-                    } else {
-
-                        Date roomInitialDate = reservation.getInitialDate();
-                        Date roomFinalDate = reservation.getFinalDate();
-                        if (roomInitialDate.toString().equals("") || roomFinalDate.toString().equals("")) {
+            if(roomReservations != null){
+                if(roomReservations.size()==0){
+                    validator = true;
+                }else {
+                    for (int j = 0; j < roomReservations.size(); j++) {
+                        Reservation reservation = roomReservations.get(j).getReservation();
+                        if (reservation == null) {
                             validator = true;
+                            break;
                         } else {
-                            if(initialDate.toString().equals(roomInitialDate.toString())){
-                                validator = false;
-                                break;
-                            }
-                            if(finalDate.toString().equals(roomFinalDate.toString())){
-                                validator = false;
-                                break;
-                            }
-                            if(initialDate.toString().equals(roomFinalDate.toString())){
-                                validator = false;
-                                break;
-                            }
-                            if(finalDate.compareTo(roomInitialDate) < 0){
+
+                            Date roomInitialDate = reservation.getInitialDate();
+                            Date roomFinalDate = reservation.getFinalDate();
+                            if (roomInitialDate.toString().equals("") || roomFinalDate.toString().equals("")) {
                                 validator = true;
-                            }
-                            else{
-                                if(initialDate.compareTo(roomFinalDate) > 0){
-                                    validator = true;
-                                }else{
+                            } else {
+                                if(initialDate.toString().equals(roomInitialDate.toString())){
                                     validator = false;
                                     break;
                                 }
-                            }
-                            if(!validator){
-                                if(initialDate.compareTo(roomFinalDate) > 0){
+                                if(finalDate.toString().equals(roomFinalDate.toString())){
+                                    validator = false;
+                                    break;
+                                }
+                                if(initialDate.toString().equals(roomFinalDate.toString())){
+                                    validator = false;
+                                    break;
+                                }
+                                if(finalDate.compareTo(roomInitialDate) < 0){
                                     validator = true;
                                 }
                                 else{
-                                    if(initialDate.compareTo(roomInitialDate) < 0){
+                                    if(initialDate.compareTo(roomFinalDate) > 0){
                                         validator = true;
                                     }else{
                                         validator = false;
+                                        break;
                                     }
                                 }
-                            }
-                            if(!validator){
-                                break;
+                                if(!validator){
+                                    if(initialDate.compareTo(roomFinalDate) > 0){
+                                        validator = true;
+                                    }
+                                    else{
+                                        if(initialDate.compareTo(roomInitialDate) < 0){
+                                            validator = true;
+                                        }else{
+                                            validator = false;
+                                        }
+                                    }
+                                }
+                                if(!validator){
+                                    break;
+                                }
                             }
                         }
                     }
                 }
-            }
-            if(validator){
-                roomListResponse.add(roomList.get(i));
+                if(validator){
+                    roomListResponse.add(roomList.get(i));
+                }
             }
         }
         ReservationResponseDTO reservationOutput = new ReservationResponseDTO();

@@ -1,8 +1,10 @@
 package mingeso.mingeso;
 
 import mingeso.mingeso.dto.ReservationDTO;
+import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Room;
+import mingeso.mingeso.repositories.ClientRepository;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.services.ReservationService;
 import org.junit.jupiter.api.Assertions;
@@ -32,6 +34,9 @@ public class ReservationServiceTest {
     @Mock
     private ReservationRepository reservationRepository;
 
+    @Mock
+    private ClientRepository clientRepository;
+
     @InjectMocks
     private ReservationService reservationService;
 
@@ -46,10 +51,23 @@ public class ReservationServiceTest {
     }
 
     @Test
-    @DisplayName("Test for create reservation")
+    @DisplayName("Test for create reservation when client doesn't exist")
     public void createReservationTest() {
         ReservationDTO reservation = new ReservationDTO();
         reservation.setRoomList(new ArrayList<Room>());
+        ResponseEntity responseEntity = reservationService.create(reservation);
+        Assertions.assertEquals(reservation, reservation);
+    }
+
+    @Test
+    @DisplayName("Test for create when client exist")
+    public void createClientExisteTest() {
+        ReservationDTO reservation = new ReservationDTO();
+        Client client = new Client();
+        client.setPassport("123");
+        reservation.setClient(client);
+        reservation.setRoomList(new ArrayList<Room>());
+        doReturn(client).when(clientRepository).findByPassport("123");
         reservationService.create(reservation);
         Assertions.assertEquals(reservation, reservation);
     }

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -79,8 +78,6 @@ public class ReservationService {
     public ResponseEntity create(@RequestBody ReservationResponseDTO reservationResponse) {
 
         Reservation newReservation = new Reservation();
-        //List<Reservation> reservations = new ArrayList<>();
-
         newReservation.setInitialDate(reservationResponse.getInitialDate());
         newReservation.setFinalDate(reservationResponse.getFinalDate());
 
@@ -95,7 +92,6 @@ public class ReservationService {
             newClient.setContact(reservationResponse.getClient().getContact());
             newClient.setName(reservationResponse.getClient().getName());
             newClient.setPassport(reservationResponse.getClient().getPassport());
-            //reservations.add(newReservation);
             newReservation.setClient(newClient);
 
         }else{
@@ -104,23 +100,16 @@ public class ReservationService {
 
         List<Room> roomList = reservationResponse.getRoomList();
         List<RoomReservation> roomReservations = new ArrayList<>();
-
-        System.out.println(newReservation.getReservationId());
         for(int i = 0 ; i < roomList.size();i++)
         {
             RoomReservation roomReservation = new RoomReservation();
-
             long id = roomList.get(i).getRoomId();
             Room room = roomRepository.findByRoomId(id);
-
             roomReservation.setRoom(room);
             roomReservation.setReservation(newReservation);
-
             roomReservations.add(roomReservation);
         }
-
         newReservation.setRoomReservations(roomReservations);
-
         return new ResponseEntity(reservationRepository.save(newReservation),HttpStatus.CREATED);
         }
     }
@@ -143,8 +132,7 @@ public class ReservationService {
 
     public String changeDateFormat(java.sql.Date date){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String formatDate = dateFormat.format(date);
-        return formatDate;
+        return dateFormat.format(date);
     }
 
 }

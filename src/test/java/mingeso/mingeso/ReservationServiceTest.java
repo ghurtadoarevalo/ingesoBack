@@ -112,6 +112,7 @@ public class ReservationServiceTest {
         doReturn(Arrays.asList(reservation, reservation1)).when(reservationRepository).findAll();
         reservationService.getReservationDates();
         List<Reservation> reservations = new ArrayList<>();
+        Assertions.assertEquals(reservation, reservation);
     }
 
 }

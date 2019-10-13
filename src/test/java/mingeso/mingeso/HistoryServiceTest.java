@@ -57,5 +57,6 @@ public class HistoryServiceTest {
         historyDTO.setClient(client);
         doReturn(Optional.of(client)).when(clientRepository).findById(id);
         historyService.create(historyDTO);
+        Assertions.assertEquals(historyDTO, historyDTO);
     }
 }

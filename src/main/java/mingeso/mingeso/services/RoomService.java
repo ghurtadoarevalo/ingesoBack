@@ -1,9 +1,11 @@
 package mingeso.mingeso.services;
 
 import mingeso.mingeso.dto.ReservationDTO;
+import mingeso.mingeso.dto.ReservationResponseDTO;
 import mingeso.mingeso.dto.RoomDTO;
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Room;
+import mingeso.mingeso.models.RoomReservation;
 import mingeso.mingeso.repositories.HotelRepository;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.RoomRepository;
@@ -27,14 +29,6 @@ public class RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
-    @Autowired
-    private HotelRepository hotelRepository;
-
-    @Autowired
-    private ReservationRepository reservationRepository;
-
-    @Autowired
-    private ServiceRepository serviceRepository;
 
     @GetMapping(value = "/rooms")
     @ResponseBody
@@ -45,47 +39,85 @@ public class RoomService {
 
     @GetMapping(value = "/getByDate")
     @ResponseBody
-    public ReservationDTO getByDate(@RequestBody ReservationDTO reservationDTO) {
+    public ReservationResponseDTO getByDate(@RequestBody ReservationDTO reservationDTO) {
 
         Date initialDate = reservationDTO.getInitialDate();
         Date finalDate = reservationDTO.getFinalDate();
 
         List<Room> roomList = roomRepository.findAll();
-        List<Room> roomFinal = new ArrayList<>();
+        List<Room> roomListResponse = new ArrayList<>();
+
         for(int i = 0 ; i < roomList.size();i++)
         {
             boolean validator = false;
-            Reservation reservation = roomList.get(i).getReservation();
-            if(reservation == null){
+
+            List<RoomReservation> roomReservations = roomList.get(i).getRoomReservations();
+
+            if(roomReservations.size()==0){
                 validator = true;
             }else {
-
-                Date roomInitialDate = reservation.getInitialDate();
-                Date roomFinalDate = reservation.getFinalDate();
-
-                if (roomInitialDate.toString().equals("") || roomFinalDate.toString().equals("")) {
-                    validator = true;
-                } else {
-                    if (initialDate.compareTo(roomInitialDate) < 0) {
-                        if (finalDate.compareTo(roomInitialDate) < 0) {
-                            validator = true;
-                        }
+                for (int j = 0; j < roomReservations.size(); j++) {
+                    Reservation reservation = roomReservations.get(j).getReservation();
+                    if (reservation == null) {
+                        validator = true;
+                        break;
                     } else {
-                        if (initialDate.compareTo(roomFinalDate) > 0) {
+
+                        Date roomInitialDate = reservation.getInitialDate();
+                        Date roomFinalDate = reservation.getFinalDate();
+                        if (roomInitialDate.toString().equals("") || roomFinalDate.toString().equals("")) {
                             validator = true;
+                        } else {
+                            if(initialDate.toString().equals(roomInitialDate.toString())){
+                                validator = false;
+                                break;
+                            }
+                            if(finalDate.toString().equals(roomFinalDate.toString())){
+                                validator = false;
+                                break;
+                            }
+                            if(initialDate.toString().equals(roomFinalDate.toString())){
+                                validator = false;
+                                break;
+                            }
+                            if(finalDate.compareTo(roomInitialDate) < 0){
+                                validator = true;
+                            }
+                            else{
+                                if(initialDate.compareTo(roomFinalDate) > 0){
+                                    validator = true;
+                                }else{
+                                    validator = false;
+                                    break;
+                                }
+                            }
+                            if(!validator){
+                                if(initialDate.compareTo(roomFinalDate) > 0){
+                                    validator = true;
+                                }
+                                else{
+                                    if(initialDate.compareTo(roomInitialDate) < 0){
+                                        validator = true;
+                                    }else{
+                                        validator = false;
+                                    }
+                                }
+                            }
+                            if(!validator){
+                                break;
+                            }
                         }
                     }
                 }
             }
             if(validator){
-                roomFinal.add(roomList.get(i));
+                roomListResponse.add(roomList.get(i));
             }
         }
-        ReservationDTO reservationOutput = new ReservationDTO();
+        ReservationResponseDTO reservationOutput = new ReservationResponseDTO();
         reservationOutput.setInitialDate(initialDate);
         reservationOutput.setFinalDate(finalDate);
-        reservationOutput.setRoomList(roomFinal);
-
+        reservationOutput.setRoomList(roomListResponse);
         return reservationOutput;
     }
 
@@ -113,7 +145,7 @@ public class RoomService {
         newRoom.setChildCapacity(roomDTO.getChildCapacity());
         newRoom.setAdultCapacity(roomDTO.getAdultCapacity());
         newRoom.setHotel(roomDTO.getHotel());
-        newRoom.setReservation(roomDTO.getReservation());
+        newRoom.setServiceRooms(roomDTO.getServiceRooms());
         newRoom.setServiceRooms(roomDTO.getServiceRooms());
         return new ResponseEntity(roomRepository.save(newRoom), HttpStatus.CREATED);
     }

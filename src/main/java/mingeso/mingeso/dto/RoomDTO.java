@@ -3,6 +3,7 @@ package mingeso.mingeso.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import mingeso.mingeso.models.Hotel;
 import mingeso.mingeso.models.Reservation;
+import mingeso.mingeso.models.RoomReservation;
 import mingeso.mingeso.models.ServiceRoom;
 
 import javax.persistence.*;
@@ -18,9 +19,10 @@ public class RoomDTO implements Serializable {
     private int childCapacity;
     private int adultCapacity;
     private String imageLink;
-    private Reservation reservation;
+
     private Hotel hotel;
     private List<ServiceRoom> serviceRooms;
+    private List<RoomReservation> roomReservations;
 
     public Long getRoomId() {
         return roomId;
@@ -78,12 +80,12 @@ public class RoomDTO implements Serializable {
         this.imageLink = imageLink;
     }
 
-    public Reservation getReservation() {
-        return reservation;
+    public List<RoomReservation> getRoomReservations() {
+        return roomReservations;
     }
 
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
+    public void setRoomReservations(List<RoomReservation> roomReservations) {
+        this.roomReservations = roomReservations;
     }
 
     public Hotel getHotel() {

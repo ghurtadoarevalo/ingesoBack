@@ -2,10 +2,7 @@ package mingeso.mingeso;
 
 import mingeso.mingeso.dto.ReservationDTO;
 import mingeso.mingeso.dto.RoomDTO;
-import mingeso.mingeso.models.Hotel;
-import mingeso.mingeso.models.Reservation;
-import mingeso.mingeso.models.Room;
-import mingeso.mingeso.models.ServiceRoom;
+import mingeso.mingeso.models.*;
 import mingeso.mingeso.repositories.HotelRepository;
 import mingeso.mingeso.repositories.RoomRepository;
 import mingeso.mingeso.services.RoomService;
@@ -76,10 +73,12 @@ public class RoomServiceTest {
         RoomDTO room = new RoomDTO();
         Hotel hotel = new Hotel();
         hotel.setOwnerName("Franco");
-        Reservation reservation = new Reservation();
+        List<RoomReservation> roomReservationList = new ArrayList<>();
+        RoomReservation roomReservation = new RoomReservation();
+        roomReservationList.add(roomReservation);
         ServiceRoom serviceRoom = new ServiceRoom();
         List<ServiceRoom> serviceRooms = new ArrayList<>();
-        room.setReservation(reservation);
+        room.setRoomReservations(roomReservationList);
         room.setImageLink("afaf");
         room.setAdultCapacity(5);
         room.setChildCapacity(5);

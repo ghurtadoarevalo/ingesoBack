@@ -1,12 +1,14 @@
 package mingeso.mingeso.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "room",schema = "usach")
+@Data
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -33,13 +35,12 @@ public class Room {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="reservation_id", nullable=true)
-    private Reservation reservation;
-
-    @JsonIgnore
-    @ManyToOne
     @JoinColumn(name="hotel_id", nullable=false)
     private Hotel hotel;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    private List<RoomReservation> roomReservations;
 
     @JsonIgnore
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
@@ -102,20 +103,20 @@ public class Room {
         this.imageLink = imageLink;
     }
 
-    public Reservation getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
-
     public Hotel getHotel() {
         return hotel;
     }
 
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
+    }
+
+    public List<RoomReservation> getRoomReservations() {
+        return roomReservations;
+    }
+
+    public void setRoomReservations(List<RoomReservation> roomReservations) {
+        this.roomReservations = roomReservations;
     }
 
     public List<ServiceRoom> getServiceRooms() {

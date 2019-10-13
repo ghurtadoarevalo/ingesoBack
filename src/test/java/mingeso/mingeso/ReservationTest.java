@@ -3,6 +3,7 @@ package mingeso.mingeso;
 import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Room;
+import mingeso.mingeso.models.RoomReservation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,23 +23,28 @@ import java.util.ArrayList;
 
     private Client client;
 
-    private ArrayList<Room> rooms;
+    private ArrayList<RoomReservation> roomReservations;
+
+    private RoomReservation roomReservation;
 
     @BeforeEach
     public void initializeReservation() {
         reservation = new Reservation();
         client = new Client();
-        rooms = new ArrayList<>();
+        roomReservations = new ArrayList<>();
+        roomReservation = new RoomReservation();
         Room room = new Room();
+
         long reservationId = 5;
         client.setClientId(reservationId);
         room.setRoomId(reservationId);
-        rooms.add(room);
+        roomReservation.setRoom(room);
+        roomReservations.add(roomReservation);
         reservation.setState(1);
         Date date = java.sql.Date.valueOf("2019-03-13");
         reservation.setReservationId(reservationId);
         reservation.setClient(client);
-        reservation.setRoomList(rooms);
+        reservation.setRoomReservations(roomReservations);
     }
 
     @Test
@@ -65,6 +71,6 @@ import java.util.ArrayList;
     @Test
     @DisplayName("Test for get rooms")
     public void getRoomsTest() {
-        Assertions.assertEquals(rooms, reservation.getRoomList());
+        Assertions.assertEquals(roomReservations, reservation.getRoomReservations());
     }
 }

@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
     Client findByPassport(String passport);
+    Client findByClientId(Long id);
 }

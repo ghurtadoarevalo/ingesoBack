@@ -11,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -24,17 +25,22 @@ public class RoomTest {
 
     private ArrayList<ServiceRoom> serviceRooms;
 
+    private RoomReservation roomReservation;
+
+    private List<RoomReservation> roomReservationList;
+
     @BeforeEach
     public void initializeRoom() {
         long serviceId = 7;
         room = new Room();
         reservation = new Reservation();
         hotel = new Hotel();
+        roomReservation = new RoomReservation();
+        roomReservationList = new ArrayList<>();
+
         ServiceRoomKey serviceRoomKey = new ServiceRoomKey();
         Service service = new Service();
         service.setServiceId(serviceId);
-        serviceRoomKey.setServiceId(serviceId);
-        serviceRoomKey.setRoomId(serviceId);
         ServiceRoom serviceRoom = new ServiceRoom();
         serviceRoom.setSrId(serviceRoomKey);
         Date date = java.sql.Date.valueOf("2019-03-13");
@@ -51,7 +57,10 @@ public class RoomTest {
         room.setType(2);
         room.setRoomNumber(101);
         room.setImageLink("https://hotelvarunamanizales.com/wp-content/uploads/2016/02/habitacion-superior-sencilla-hotel-manizales-varuna-4.jpg");
-        room.setReservation(reservation);
+        roomReservation.setRoom(room);
+        roomReservation.setReservation(reservation);
+        roomReservationList.add(roomReservation);
+        room.setRoomReservations(roomReservationList);
         room.setHotel(hotel);
         room.setServiceRooms(serviceRooms);
     }
@@ -104,7 +113,7 @@ public class RoomTest {
     @Test
     @DisplayName("Test for get reservation")
     public void getReservationTest() {
-        Assertions.assertEquals(reservation, room.getReservation());
+        Assertions.assertEquals(roomReservationList, room.getRoomReservations());
     }
 
     @Test

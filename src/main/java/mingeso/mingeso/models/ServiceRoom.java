@@ -8,7 +8,7 @@ import java.sql.Date;
 public class ServiceRoom {
 
     @EmbeddedId
-    private ServiceRoomKey srId;
+    private ServiceRoomKey srId = new ServiceRoomKey();
 
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("serviceId")

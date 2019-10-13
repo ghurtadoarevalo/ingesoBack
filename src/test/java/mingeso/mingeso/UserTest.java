@@ -11,6 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -35,13 +36,28 @@ public class UserTest {
         history = new History("Hola", client);
         Date initialDate = java.sql.Date.valueOf("2019-03-13");
         Date finalDate = java.sql.Date.valueOf("2019-03-14");
-        ArrayList<Room> rooms = new ArrayList<>();
-        ArrayList<Reservation> reservations = new ArrayList<>();
-        reservation = new Reservation(0, client, rooms,initialDate,finalDate);
+        List<Room> rooms = new ArrayList<>();
+        for(int i = 0; i < 5;i++){
+            rooms.add(new Room());
+        }
+        List<Reservation> reservations = new ArrayList<>();
+        reservation = new Reservation();
+        reservation.setInitialDate(initialDate);
+        reservation.setFinalDate(finalDate);
+        List<RoomReservation> roomReservationList = reservation.getRoomReservations();
+
+        for(int i = 0; i < rooms.size();i++){
+            RoomReservation roomReservation = new RoomReservation();
+            roomReservation.setReservation(reservation);
+            roomReservation.setRoom(rooms.get(i));
+            roomReservationList.add(roomReservation);
+        }
+        reservation.setRoomReservations(roomReservationList);
         reservations.add(reservation);
         client.setHistory(history);
         client.setReservationList(reservations);
     }
+
 
     @Test
     @DisplayName("Test for get user id")

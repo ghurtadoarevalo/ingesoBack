@@ -4,7 +4,11 @@ import mingeso.mingeso.dto.ReservationDTO;
 import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Room;
+<<<<<<< Updated upstream
 import mingeso.mingeso.repositories.ClientRepository;
+=======
+import mingeso.mingeso.models.RoomReservation;
+>>>>>>> Stashed changes
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.services.ReservationService;
 import org.junit.jupiter.api.Assertions;
@@ -46,10 +50,10 @@ public class ReservationServiceTest {
         Reservation reservation = new Reservation();
         doReturn(Arrays.asList(reservation)).when(reservationRepository).findAll();
         List<Reservation> reservations = reservationService.getAll();
-
         Assertions.assertEquals(1, reservations.size());
     }
 
+<<<<<<< Updated upstream
     @Test
     @DisplayName("Test for create reservation when client doesn't exist")
     public void createReservationTest() {
@@ -84,4 +88,22 @@ public class ReservationServiceTest {
         reservationService.create(reservation);
         Assertions.assertEquals(reservation, reservation);
     }
+=======
+    /*
+    @Test
+    @DisplayName("Test for create reservation")
+    public void createReservationTest() {
+        ReservationDTO reservation = new ReservationDTO();
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        RoomReservation roomReservation = new RoomReservation();
+        roomReservation.setRoom(new Room());
+
+        roomReservations.add(roomReservation);
+        reservation.setRoomReservations(roomReservations);
+
+        when(reservationService.create(reservation)).thenReturn(new ResponseEntity(reservation, HttpStatus.CREATED));
+        Assertions.assertEquals(reservation, reservation);
+    }
+    */
+>>>>>>> Stashed changes
 }

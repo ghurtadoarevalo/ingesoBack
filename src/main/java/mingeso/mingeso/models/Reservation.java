@@ -1,15 +1,21 @@
 package mingeso.mingeso.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "reservation",schema = "usach")
+@Data
 public class Reservation {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "reservation_id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long reservationId;
 
     @Column(name = "state", nullable = false, length = 2)
@@ -19,19 +25,21 @@ public class Reservation {
     @JoinColumn(name="client_id", nullable=false)
     private Client client;
 
-    @OneToMany(mappedBy="reservation")
-    private List<Room> roomList;
-
     @Column(name = "initial_date", nullable = false, length = 15)
     private Date initialDate;
 
     @Column(name = "final_date", nullable = false, length = 15)
     private Date finalDate;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
+    private List<RoomReservation> roomReservations;
+
 
     public Long getReservationId() {
         return reservationId;
     }
+
 
     public void setReservationId(Long reservationId) {
         this.reservationId = reservationId;
@@ -53,18 +61,17 @@ public class Reservation {
         this.client = client;
     }
 
-    public List<Room> getRoomList() {
-        return roomList;
+    public List<RoomReservation> getRoomReservations() {
+        return roomReservations;
     }
 
-    public void setRoomList(List<Room> roomList) {
-        this.roomList = roomList;
+    public void setRoomReservations(List<RoomReservation> roomReservations) {
+        this.roomReservations = roomReservations;
     }
 
     public Reservation() {
 
     }
-
 
     public Date getInitialDate() {
         return initialDate;
@@ -82,10 +89,9 @@ public class Reservation {
         this.finalDate = finalDate;
     }
 
-    public Reservation(int state, Client client, List<Room> roomList, Date initialDate, Date finalDate) {
+    public Reservation(int state, Client client, Date initialDate, Date finalDate) {
         this.state = state;
         this.client = client;
-        this.roomList = roomList;
         this.initialDate = initialDate;
         this.finalDate = finalDate;
     }

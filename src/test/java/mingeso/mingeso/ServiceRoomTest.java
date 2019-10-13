@@ -39,7 +39,6 @@ public class ServiceRoomTest {
         serviceRoom.setRoom(room);
         service.setServiceId(id);
         serviceRoom.setService(service);
-        serviceRoomKey.setRoomId(id);
         serviceRoom.setSrId(serviceRoomKey);
     }
 

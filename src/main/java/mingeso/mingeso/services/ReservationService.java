@@ -1,9 +1,10 @@
 package mingeso.mingeso.services;
 
-import mingeso.mingeso.dto.ReservationDTO;
+import mingeso.mingeso.dto.ReservationResponseDTO;
 import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Room;
+import mingeso.mingeso.models.RoomReservation;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.RoomRepository;
 import mingeso.mingeso.repositories.ClientRepository;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,45 +38,53 @@ public class ReservationService {
          return reservationRepository.findAll();
     }
 
+
     @PostMapping(value = "/create")
     @ResponseBody
-    public ResponseEntity create(@RequestBody ReservationDTO reservationDTO) {
+    public ResponseEntity create(@RequestBody ReservationResponseDTO reservationResponse) {
 
         Reservation newReservation = new Reservation();
-        List<Reservation> reservations = new ArrayList<>();
-        newReservation.setInitialDate(reservationDTO.getInitialDate());
-        newReservation.setFinalDate(reservationDTO.getFinalDate());
+        //List<Reservation> reservations = new ArrayList<>();
 
+        newReservation.setInitialDate(reservationResponse.getInitialDate());
+        newReservation.setFinalDate(reservationResponse.getFinalDate());
 
-        if(reservationDTO.getClient() == null){
+        if(reservationResponse.getClient() == null){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         else{
-        Client inputClient = clientRepository.findByPassport(reservationDTO.getClient().getPassport());
+        Client inputClient = clientRepository.findByPassport(reservationResponse.getClient().getPassport());
         if(inputClient == null){
             Client newClient = new Client();
-            newClient.setMail(reservationDTO.getClient().getMail());
-            newClient.setContact(reservationDTO.getClient().getContact());
-            newClient.setName(reservationDTO.getClient().getName());
-            newClient.setPassport(reservationDTO.getClient().getPassport());
-            reservations.add(newReservation);
+            newClient.setMail(reservationResponse.getClient().getMail());
+            newClient.setContact(reservationResponse.getClient().getContact());
+            newClient.setName(reservationResponse.getClient().getName());
+            newClient.setPassport(reservationResponse.getClient().getPassport());
+            //reservations.add(newReservation);
             newReservation.setClient(newClient);
 
         }else{
             newReservation.setClient(inputClient);
         }
 
-        List<Room> roomList = new ArrayList<>();
+        List<Room> roomList = reservationResponse.getRoomList();
+        List<RoomReservation> roomReservations = new ArrayList<>();
 
-        for(int i = 0 ; i < reservationDTO.getRoomList().size();i++)
+        System.out.println(newReservation.getReservationId());
+        for(int i = 0 ; i < roomList.size();i++)
         {
-            long id = reservationDTO.getRoomList().get(i).getRoomId();
+            RoomReservation roomReservation = new RoomReservation();
+
+            long id = roomList.get(i).getRoomId();
             Room room = roomRepository.findByRoomId(id);
-            room.setReservation(newReservation);
-            roomList.add(room);
+
+            roomReservation.setRoom(room);
+            roomReservation.setReservation(newReservation);
+
+            roomReservations.add(roomReservation);
         }
 
-        newReservation.setRoomList(roomList);
+        newReservation.setRoomReservations(roomReservations);
 
         return new ResponseEntity(reservationRepository.save(newReservation),HttpStatus.CREATED);
         }

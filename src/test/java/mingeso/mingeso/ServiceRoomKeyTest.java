@@ -14,7 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class ServiceRoomKeyTest {
 
     private ServiceRoomKey serviceRoomKey;
-
+    /*
     @BeforeEach
     public void initializeServiceRoomKey() {
         serviceRoomKey = new ServiceRoomKey();
@@ -22,7 +22,9 @@ public class ServiceRoomKeyTest {
         serviceRoomKey.setRoomId(serviceRoomKeyId);
         serviceRoomKey.setServiceId(serviceRoomKeyId);
     }
+    */
 
+    /*
     @Test
     @DisplayName("Test for get room Id")
     public void getRoomIdTest() {
@@ -30,7 +32,9 @@ public class ServiceRoomKeyTest {
         long realId = serviceRoomKey.getRoomId();
         Assertions.assertEquals(id, realId);
     }
+    */
 
+    /*
     @Test
     @DisplayName("Test for get service id")
     public void getServiceId() {
@@ -38,4 +42,5 @@ public class ServiceRoomKeyTest {
         long realId = serviceRoomKey.getServiceId();
         Assertions.assertEquals(id, realId);
     }
+    */
 }

@@ -29,8 +29,6 @@ public class Service {
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
     private List<ServiceRoom> serviceRooms;
 
-
-
     public Long getServiceId() {
         return serviceId;
     }

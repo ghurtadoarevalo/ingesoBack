@@ -2,23 +2,19 @@ package mingeso.mingeso.dto;
 
 import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.Room;
-import mingeso.mingeso.models.RoomReservation;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-public class ReservationDTO implements Serializable {
+public class ReservationResponseDTO implements Serializable {
 
     private Long reservationId;
-
     private int state;
     private Client client;
-    private List<RoomReservation> roomReservations;
+    private List<Room> roomList;
     private Date initialDate;
     private Date finalDate;
-
 
     public Long getReservationId() {
         return reservationId;
@@ -44,12 +40,12 @@ public class ReservationDTO implements Serializable {
         this.client = client;
     }
 
-    public List<RoomReservation> getRoomReservations() {
-        return roomReservations;
+    public List<Room> getRoomList() {
+        return roomList;
     }
 
-    public void setRoomReservations(List<RoomReservation> roomReservations) {
-        this.roomReservations = roomReservations;
+    public void setRoomList(List<Room> roomList) {
+        this.roomList = roomList;
     }
 
     public Date getInitialDate() {

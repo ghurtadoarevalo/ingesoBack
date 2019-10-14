@@ -1,5 +1,8 @@
 package mingeso.mingeso.services;
 
+import mingeso.mingeso.dto.ClientDTO;
+import mingeso.mingeso.dto.UserDTO;
+import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.Role;
 import mingeso.mingeso.models.User;
 import mingeso.mingeso.repositories.RoleRepository;
@@ -39,6 +42,24 @@ public class UserService {
             }
         }  
         return new ResponseEntity(usersByRol, HttpStatus.OK);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public ResponseEntity create(@RequestBody UserDTO userDTO) {
+        User newUser = new User();
+        newUser.setPassword(userDTO.getPassword());
+        newUser.setName(userDTO.getName());
+        newUser.setContact(userDTO.getContact());
+
+        Optional<Role> role = roleRepository.findById(userDTO.getRole().getRoleId());
+        if(role.isPresent()){
+            newUser.setRole(userDTO.getRole());
+            return new ResponseEntity(userRepository.save(newUser), HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

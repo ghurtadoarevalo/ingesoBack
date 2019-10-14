@@ -82,7 +82,7 @@ public class ReservationService {
             roomListItem.put("Indicators",roomsDatesReservationArray);
             roomsArray.put(roomListItem);
         }
-        jsonObject.put("rooms",roomsArray);
+        jsonObject.put("reservations",roomsArray);
         return jsonObject.toString();
     }
 

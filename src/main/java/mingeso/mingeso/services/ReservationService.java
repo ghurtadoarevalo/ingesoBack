@@ -40,7 +40,7 @@ public class ReservationService {
          return reservationRepository.findAll();
     }
 
-    @GetMapping(value = "/getByDateTest")
+    @GetMapping(value = "/getAllWithDate")
     @ResponseBody
     public String getWithFormat(){
 

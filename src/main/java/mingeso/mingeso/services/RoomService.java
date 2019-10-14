@@ -21,7 +21,9 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/room")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
+
+
 public class RoomService {
 
     @Autowired
@@ -36,10 +38,11 @@ public class RoomService {
     @Autowired
     private ServiceRepository serviceRepository;
 
-    @GetMapping(value = "/rooms")
+    @GetMapping(value = "/getall")
     @ResponseBody
     public List<Room> getAll() {
-        return roomRepository.findAll();
+        List<Room> allRooms = roomRepository.findAll();
+        return allRooms;
     }
 
 

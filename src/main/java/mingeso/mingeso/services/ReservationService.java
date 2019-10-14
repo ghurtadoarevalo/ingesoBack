@@ -18,7 +18,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/reservation")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
 public class ReservationService {
 
     @Autowired
@@ -30,7 +30,7 @@ public class ReservationService {
     @Autowired
     ClientRepository clientRepository;
 
-    @GetMapping(value = "/reservations")
+    @GetMapping(value = "/getall")
     @ResponseBody
     public List<Reservation> getAll() {
          return reservationRepository.findAll();

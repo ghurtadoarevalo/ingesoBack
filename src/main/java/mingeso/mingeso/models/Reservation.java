@@ -37,7 +37,6 @@ public class Reservation {
         return reservationId;
     }
 
-
     public void setReservationId(Long reservationId) {
         this.reservationId = reservationId;
     }

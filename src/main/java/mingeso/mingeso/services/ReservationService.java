@@ -8,6 +8,8 @@ import mingeso.mingeso.models.RoomReservation;
 import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.RoomRepository;
 import mingeso.mingeso.repositories.ClientRepository;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +40,47 @@ public class ReservationService {
          return reservationRepository.findAll();
     }
 
+    @GetMapping(value = "/getByDateTest")
+    @ResponseBody
+    public String getWithFormat(){
+
+        JSONObject jsonObject = new JSONObject();
+        List<Room> roomList = roomRepository.findAll();
+        JSONArray roomsArray = new JSONArray();
+
+        for(int i = 0 ; i < roomList.size();i++){
+            Room room = roomList.get(i);
+            List<RoomReservation> roomReservations = room.getRoomReservations();
+
+            JSONObject roomListItem = new JSONObject();
+
+            roomListItem.put("roomId",room.getRoomId());
+            roomListItem.put("numero",room.getRoomNumber());
+
+            JSONArray roomsDatesReservationArray = new JSONArray();
+
+            for(int j = 0 ; j < roomReservations.size();j++){
+                Reservation reservation = roomReservations.get(j).getReservation();
+                List<Date> dates = getDatesInRange(reservation.getInitialDate(),reservation.getFinalDate());
+                Client client = reservation.getClient();
+                for(int k = 0 ; k < dates.size();k++){
+                    Date date = dates.get(k);
+                    JSONObject roomsDatesReservationItem = new JSONObject();
+                    roomsDatesReservationItem.put("clientId",client.getClientId());
+                    roomsDatesReservationItem.put("reservationId",reservation.getReservationId());
+                    roomsDatesReservationItem.put("date",changeDateFormat(date));
+                    roomsDatesReservationItem.put("name",client.getName());
+                    roomsDatesReservationArray.put(roomsDatesReservationItem);
+                }
+            }
+            roomListItem.put("Indicators",roomsDatesReservationArray);
+            roomsArray.put(roomListItem);
+        }
+        jsonObject.put("rooms",roomsArray);
+        return jsonObject.toString();
+    }
+
+
     @GetMapping(value = "/reservationsDates")
     @ResponseBody
     public List<ReservationResponseDTO> getReservationDates() {
@@ -54,10 +97,14 @@ public class ReservationService {
                 RoomReservation roomReservation = roomReservations.get(j);
                 roomList.add(roomReservation.getRoom());
             }
-            List<String> dates = getDatesInRange(reservation.getInitialDate(),reservation.getFinalDate());
-
+            List<Date> dates = getDatesInRange(reservation.getInitialDate(),reservation.getFinalDate());
+            List<String> finalDates = new ArrayList<>();
+            for(int j = 0; j < dates.size();j++){
+                finalDates.add(changeDateFormat(dates.get(j)));
+            }
+            reservationResponseDTO.setReservationId(reservation.getReservationId());
             reservationResponseDTO.setRoomList(roomList);
-            reservationResponseDTO.setDateList(dates);
+            reservationResponseDTO.setDateList(finalDates);
             reservationResponseDTO.setClient(reservation.getClient());
             reservationResponseDTO.setState(reservation.getState());
             reservationResponseDTOS.add(reservationResponseDTO);
@@ -108,17 +155,8 @@ public class ReservationService {
         }
     }
 
-    @DeleteMapping(value = "/delete/{reservation_id}")
-    public void delete(@PathVariable("reservation_id") long id) {
-        Optional<Reservation> reservation = reservationRepository.findById(id);
-        if(reservation.isPresent()) {
-            Reservation reservation1 = reservation.get();
-            reservationRepository.delete(reservation1);
-        }
-    }
-
-    public List<String> getDatesInRange(Date initialDate, Date finalDate){
-        List<String> dates = new ArrayList<>();
+    public List<Date> getDatesInRange(Date initialDate, Date finalDate){
+        List<Date> dates = new ArrayList<>();
         Calendar calendar = new GregorianCalendar();
         Calendar endCalendar = new GregorianCalendar();
         calendar.setTime(initialDate);
@@ -126,10 +164,10 @@ public class ReservationService {
         while (calendar.before(endCalendar)) {
             java.util.Date result = calendar.getTime();
             Date sqlDate = new Date(result.getTime());
-            dates.add(changeDateFormat(sqlDate));
+            dates.add(sqlDate);
             calendar.add(Calendar.DATE, 1);
         }
-        dates.add(changeDateFormat(finalDate));
+        dates.add(finalDate);
         return dates;
     }
 

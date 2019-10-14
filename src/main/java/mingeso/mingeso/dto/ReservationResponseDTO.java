@@ -20,9 +20,9 @@ public class ReservationResponseDTO implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date finalDate;
 
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern="MM/dd/yyyy")
     private Date originalFormatInitial;
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @JsonFormat(pattern="MM/dd/yyyy")
     private Date originalFormatFinal;
 
     private List<String> dateList;

@@ -178,7 +178,7 @@ public class ReservationService {
     }
 
     public String changeDateFormat(java.sql.Date date){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         return dateFormat.format(date);
     }
 

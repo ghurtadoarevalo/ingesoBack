@@ -37,7 +37,7 @@ public class RoomService {
     }
 
 
-    @GetMapping(value = "/getByDate")
+    @PostMapping(value = "/getByDate")
     @ResponseBody
     public ReservationResponseDTO getByDate(@RequestBody ReservationResponseDTO reservationDTO) {
 

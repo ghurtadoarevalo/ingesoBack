@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/reservation")
@@ -113,7 +110,11 @@ public class ReservationService {
 
     @DeleteMapping(value = "/delete/{reservation_id}")
     public void delete(@PathVariable("reservation_id") long id) {
-        reservationRepository.delete(reservationRepository.findById(id).get());
+        Optional<Reservation> reservation = reservationRepository.findById(id);
+        if(reservation.isPresent()) {
+            Reservation reservation1 = reservation.get();
+            reservationRepository.delete(reservation1);
+        }
     }
 
     public List<String> getDatesInRange(Date initialDate, Date finalDate){

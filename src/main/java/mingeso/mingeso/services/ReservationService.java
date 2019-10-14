@@ -56,7 +56,7 @@ public class ReservationService {
 
             JSONObject roomListItem = new JSONObject();
 
-            roomListItem.put("roomId",room.getRoomId());
+            //roomListItem.put("roomId",room.getRoomId());
             roomListItem.put("TaskID",room.getRoomNumber());
             roomListItem.put("TaskName","Room");
             roomListItem.put("StartDate",changeDateFormat(date1));
@@ -70,8 +70,8 @@ public class ReservationService {
                 for(int k = 0 ; k < dates.size();k++){
                     Date date = dates.get(k);
                     JSONObject roomsDatesReservationItem = new JSONObject();
-                    roomsDatesReservationItem.put("clientId",client.getClientId());
-                    roomsDatesReservationItem.put("reservationId",reservation.getReservationId());
+                    //roomsDatesReservationItem.put("clientId",client.getClientId());
+                    //roomsDatesReservationItem.put("reservationId",reservation.getReservationId());
                     roomsDatesReservationItem.put("date",changeDateFormat(date));
                     roomsDatesReservationItem.put("iconClass","Reservado");
                     roomsDatesReservationItem.put("tooltip",client.getName());

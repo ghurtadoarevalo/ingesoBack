@@ -111,6 +111,11 @@ public class ReservationService {
         }
     }
 
+    @DeleteMapping(value = "/delete/{reservation_id}")
+    public void delete(@PathVariable("reservation_id") long id) {
+        reservationRepository.delete(reservationRepository.findById(id).get());
+    }
+
     public List<String> getDatesInRange(Date initialDate, Date finalDate){
         List<String> dates = new ArrayList<>();
         Calendar calendar = new GregorianCalendar();

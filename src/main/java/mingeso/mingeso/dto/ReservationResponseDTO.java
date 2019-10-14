@@ -1,5 +1,6 @@
 package mingeso.mingeso.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.Room;
 
@@ -13,8 +14,17 @@ public class ReservationResponseDTO implements Serializable {
     private int state;
     private Client client;
     private List<Room> roomList;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date initialDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date finalDate;
+
+    @JsonFormat(pattern="dd/MM/yyyy")
+    private Date originalFormatInitial;
+    @JsonFormat(pattern="dd/MM/yyyy")
+    private Date originalFormatFinal;
+
     private List<String> dateList;
 
     public Long getReservationId() {
@@ -71,5 +81,21 @@ public class ReservationResponseDTO implements Serializable {
 
     public void setDateList(List<String> dateList) {
         this.dateList = dateList;
+    }
+
+    public Date getOriginalFormatInitial() {
+        return originalFormatInitial;
+    }
+
+    public void setOriginalFormatInitial(Date originalFormatInitial) {
+        this.originalFormatInitial = originalFormatInitial;
+    }
+
+    public Date getOriginalFormatFinal() {
+        return originalFormatFinal;
+    }
+
+    public void setOriginalFormatFinal(Date originalFormatFinal) {
+        this.originalFormatFinal = originalFormatFinal;
     }
 }

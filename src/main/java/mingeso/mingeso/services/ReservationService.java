@@ -46,12 +46,9 @@ public class ReservationService {
     public List<ReservationResponseDTO> getReservationDates() {
         List<ReservationResponseDTO> reservationResponseDTOS = new ArrayList<>();
         List<Reservation> reservationList = reservationRepository.findAll();
-
-
         for(int i = 0 ; i < reservationList.size();i++) {
             ReservationResponseDTO reservationResponseDTO = new ReservationResponseDTO();
             List<Room> roomList = new ArrayList<>();
-
             Reservation reservation = reservationList.get(i);
             reservationResponseDTO.setInitialDate(reservation.getInitialDate());
             reservationResponseDTO.setFinalDate(reservation.getFinalDate());

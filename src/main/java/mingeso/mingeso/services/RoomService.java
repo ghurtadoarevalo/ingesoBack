@@ -1,15 +1,11 @@
 package mingeso.mingeso.services;
 
-import mingeso.mingeso.dto.ReservationDTO;
 import mingeso.mingeso.dto.ReservationResponseDTO;
 import mingeso.mingeso.dto.RoomDTO;
 import mingeso.mingeso.models.Reservation;
 import mingeso.mingeso.models.Room;
 import mingeso.mingeso.models.RoomReservation;
-import mingeso.mingeso.repositories.HotelRepository;
-import mingeso.mingeso.repositories.ReservationRepository;
 import mingeso.mingeso.repositories.RoomRepository;
-import mingeso.mingeso.repositories.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -41,8 +39,11 @@ public class RoomService {
     @ResponseBody
     public ReservationResponseDTO getByDate(@RequestBody ReservationResponseDTO reservationDTO) {
 
-        Date initialDate = reservationDTO.getInitialDate();
-        Date finalDate = reservationDTO.getFinalDate();
+        Date initialDate = reservationDTO.getOriginalFormatInitial();
+        if(initialDate == null){ initialDate = reservationDTO.getInitialDate(); }
+
+        Date finalDate = reservationDTO.getOriginalFormatFinal();
+        if(finalDate == null){ finalDate = reservationDTO.getFinalDate(); }
 
         List<Room> roomList = roomRepository.findAll();
         List<Room> roomListResponse = new ArrayList<>();
@@ -150,4 +151,5 @@ public class RoomService {
         newRoom.setServiceRooms(roomDTO.getServiceRooms());
         return new ResponseEntity(roomRepository.save(newRoom), HttpStatus.CREATED);
     }
+
 }

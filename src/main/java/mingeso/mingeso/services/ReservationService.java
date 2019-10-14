@@ -52,12 +52,14 @@ public class ReservationService {
             Room room = roomList.get(i);
             List<RoomReservation> roomReservations = room.getRoomReservations();
 
+            Date date1 = java.sql.Date.valueOf("2019-03-13");
+
             JSONObject roomListItem = new JSONObject();
 
             roomListItem.put("roomId",room.getRoomId());
             roomListItem.put("TaskID",room.getRoomNumber());
             roomListItem.put("TaskName","Room");
-            roomListItem.put("StartDate",roomReservations.get(i).getReservation().getInitialDate());
+            roomListItem.put("StartDate",changeDateFormat(date1));
 
             JSONArray roomsDatesReservationArray = new JSONArray();
 

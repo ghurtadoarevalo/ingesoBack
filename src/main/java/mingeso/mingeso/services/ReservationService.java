@@ -114,7 +114,7 @@ public class ReservationService {
                     //roomsDatesReservationItem.put("reservationId",reservation.getReservationId());
                     roomsDatesReservationItem.put("date",changeDateFormat(date));
                     roomsDatesReservationItem.put("iconClass","Reservado");
-                    roomsDatesReservationItem.put("tooltip",client.getName());
+                    roomsDatesReservationItem.put("tooltip","Reservado por: "+client.getName());
                     roomsDatesReservationItem.put("name","<span style='color:red; margin-left:10px'> R </span>");
                     roomsDatesReservationArray.put(roomsDatesReservationItem);
                 }

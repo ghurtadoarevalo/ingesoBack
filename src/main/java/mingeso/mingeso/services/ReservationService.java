@@ -46,12 +46,26 @@ public class ReservationService {
 
         JSONObject jsonObject = new JSONObject();
         List<Room> roomList = roomRepository.findAll();
+
+        Comparator<Room> compareByNumber = new Comparator<Room>() {
+            @Override
+            public int compare(Room r1, Room r2) {
+                Double r2RoomNumber = (double)r2.getRoomNumber();
+                Double r1RoomNumber = (double)r1.getRoomNumber();
+                return r2RoomNumber.compareTo(r1RoomNumber);
+            }
+        };
+
+        Collections.sort(roomList,compareByNumber);
+
+
         JSONArray roomsArray = new JSONArray();
 
-        for(int i = 0 ; i < roomList.size();i++){
-            Room room = roomList.get(i);
-            List<RoomReservation> roomReservations = room.getRoomReservations();
+        for(int i = roomList.size()-1 ; i > -1;i--){
 
+            Room room = roomList.get(i);
+            System.out.println("Room: "+room.getRoomNumber());
+            List<RoomReservation> roomReservations = room.getRoomReservations();
             Date date1 = java.sql.Date.valueOf("2019-03-13");
 
             JSONObject roomListItem = new JSONObject();

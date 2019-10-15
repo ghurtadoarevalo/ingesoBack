@@ -40,6 +40,32 @@ public class ReservationService {
          return reservationRepository.findAll();
     }
 
+    @GetMapping(value = "/getInitialAndFinal")
+    @ResponseBody
+    public String getInitialAndFinal(){
+        JSONObject jsonObject = new JSONObject();
+        List<Reservation> reservationList = reservationRepository.findAll();
+        Date initialDate = reservationList.get(0).getInitialDate();
+        Date finalDate = reservationList.get(0).getFinalDate();
+
+        for(int i = 0 ; i < reservationList.size();i++){
+            Date initialReservation = reservationList.get(i).getInitialDate();
+            Date finalReservation = reservationList.get(i).getFinalDate();
+
+            if(initialDate.compareTo(initialReservation) > 0){
+                initialDate = initialReservation;
+            }
+            if(finalDate.compareTo(finalReservation) < 0){
+                finalDate = finalReservation;
+            }
+        }
+        jsonObject.put("initialDate",changeDateFormat(initialDate));
+        jsonObject.put("finalDate",changeDateFormat(finalDate));
+
+        return jsonObject.toString();
+    }
+
+
     @GetMapping(value = "/getAllWithDate")
     @ResponseBody
     public String getWithFormat(){

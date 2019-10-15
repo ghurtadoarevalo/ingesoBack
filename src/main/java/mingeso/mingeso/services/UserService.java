@@ -1,8 +1,6 @@
 package mingeso.mingeso.services;
 
-import mingeso.mingeso.dto.ClientDTO;
 import mingeso.mingeso.dto.UserDTO;
-import mingeso.mingeso.models.Client;
 import mingeso.mingeso.models.Role;
 import mingeso.mingeso.models.User;
 import mingeso.mingeso.repositories.RoleRepository;

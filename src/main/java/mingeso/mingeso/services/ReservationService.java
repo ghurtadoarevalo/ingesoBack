@@ -110,8 +110,6 @@ public class ReservationService {
                 for(int k = 0 ; k < dates.size();k++){
                     Date date = dates.get(k);
                     JSONObject roomsDatesReservationItem = new JSONObject();
-                    //roomsDatesReservationItem.put("clientId",client.getClientId());
-                    //roomsDatesReservationItem.put("reservationId",reservation.getReservationId());
                     roomsDatesReservationItem.put("date",changeDateFormat(date));
                     roomsDatesReservationItem.put("iconClass","Reservado");
                     roomsDatesReservationItem.put("tooltip","Reservado por: "+client.getName());

@@ -8,7 +8,9 @@ import mingeso.mingeso.models.Room;
 import mingeso.mingeso.models.RoomReservation;
 import mingeso.mingeso.repositories.ClientRepository;
 import mingeso.mingeso.repositories.ReservationRepository;
+import mingeso.mingeso.repositories.RoomRepository;
 import mingeso.mingeso.services.ReservationService;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,6 +42,9 @@ public class ReservationServiceTest {
 
     @Mock
     private ClientRepository clientRepository;
+
+    @Mock
+    private RoomRepository roomRepository;
 
     @InjectMocks
     private ReservationService reservationService;
@@ -113,6 +118,41 @@ public class ReservationServiceTest {
         reservationService.getReservationDates();
         List<Reservation> reservations = new ArrayList<>();
         Assertions.assertEquals(reservation, reservation);
+    }
+
+    @Test
+    @DisplayName("Test for get initial and final date")
+    public void initialAndFinalDateTest() {
+        JSONObject jsonObject = new JSONObject();
+        Date date = java.sql.Date.valueOf("2019-03-13");
+        Date date1 = java.sql.Date.valueOf("2019-03-17");
+        Reservation reservation = new Reservation();
+        Reservation reservation1 = new Reservation();
+        reservation.setInitialDate(date);
+        reservation.setFinalDate(date1);
+        reservation1.setInitialDate(date);
+        reservation1.setFinalDate(date1);
+        jsonObject.put("initialDate", reservationService.changeDateFormat(date));
+        jsonObject.put("finalDate", reservationService.changeDateFormat(date1));
+        doReturn(Arrays.asList(reservation, reservation1)).when(reservationRepository).findAll();
+        reservationService.getInitialAndFinal();
+        Assertions.assertEquals(jsonObject, jsonObject);
+    }
+
+    @Test
+    @DisplayName("Test for get rooms with format")
+    public void getRoomsWithFormat() {
+        Room room = new Room();
+        Reservation reservation = new Reservation();
+        List<Reservation> reservations = new ArrayList<>();
+        Date date = java.sql.Date.valueOf("2019-03-13");
+        Date date1 = java.sql.Date.valueOf("2019-03-17");
+        reservation.setInitialDate(date);
+        reservation.setFinalDate(date1);
+        reservations.add(reservation);
+        room.setRoomNumber(123);
+        reservationService.getWithFormat();
+        Assertions.assertEquals(room, room);
     }
 
 }
